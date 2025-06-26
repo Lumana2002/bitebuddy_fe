@@ -1,29 +1,31 @@
-"use client";
+"use client"
 
-import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
-type MblNavItemProps = {
-  name: string;
-  href: string;
-};
+interface MblNavItemProps {
+  href: string
+  name: string
+  onClose: () => void
+}
 
-const MblNavItem = ({ name, href }: MblNavItemProps) => {
-  const pathname = usePathname();
+const MblNavItem = ({ href, name, onClose }: MblNavItemProps) => {
+  const pathname = usePathname()
+  const isActive = pathname === href
+
   return (
     <Link
       href={href}
-      className={cn(
-        "flex items-center justify-center py-3 text-foreground xl:text-[1rem] opacity-80 hover:opacity-100 transition duration-150",
-        {
-          "text-red-600 opacity-100 font-semibold": pathname === href,
-        }
-      )}
+      onClick={onClose}
+      className={`block px-3 py-3 rounded-lg text-base font-medium transition-colors ${
+        isActive
+          ? "bg-blue-50 text-amber-500 border-l-4 border-amber-200"
+          : "text-amber-900 hover:bg-gray-50 hover:text-amber-800"
+      }`}
     >
       {name}
     </Link>
-  );
-};
+  )
+}
 
-export default MblNavItem;
+export default MblNavItem

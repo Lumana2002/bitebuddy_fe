@@ -18,7 +18,7 @@ const MblSidebarItem = ({ link, name }: MblSidebarItemProps) => {
       <Link
         href={link}
         className={cn(
-          "flex items-center gap-x-1 text-foreground transition duration-150 ease-in-out hover:bg-primary/20 w-full font-medium opacity-80 text-lg py-4 pl-8",
+          "flex items-center gap-x-1 text-foreground transition duration-150 ease-in-out hover:bg-amber-20 w-full font-medium opacity-80 text-lg py-4 pl-8",
           {
             "text-primary  font-bold opacity-100 ":
               pathname === link || (link !== '/dashboard' && pathname.startsWith(link)),

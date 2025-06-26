@@ -1,132 +1,174 @@
-import Image from "next/image";
-import Link from "next/link";
-
-import { footerLists } from "./list/footerLists";
-import { socialLinks } from "./list/socialLinks";
-import building from "@/public/assets/ph_building-office.png";
+import Image from "next/image"
+import Link from "next/link"
+import { footerLists } from "./list/footerLists"
+import { socialLinks } from "./list/socialLinks"
+import { MapPin, Phone, Mail, Heart, Star, Users, Clock } from "lucide-react"
 
 const Footer = () => {
   return (
-    <footer className="overflow-x-hidden mx-[20px] md:mx-[40px] 2xl:mx-[80px]">
-      <div className="xl:flex gap-5 justify-between items-start mt-[72px] w-full max-md:mt-10 grid grid-cols-1 md:grid-cols-4 mmd:grid-cols-6">
-        <div className="xl:flex xl:flex-col xl:w-[20%] grid mmd:col-span-2 col-span-2">
-          <h2 className="text-2xl font-normal leading-[28px] text-black">
-            BiteBuddy
-          </h2>
-          <p className="mt-[19px] text-lg font-light leading-7 text-black ">
-          Discover your favorite meals and order from the best restaurants around you, all in one place. At BiteBuddy, we bring convenience and flavor to your doorstep, offering a seamless food ordering experience tailored just for you.
-          </p>
-          <div className="flex gap-2.5 mt-11 max-md:mt-10">
-            {socialLinks.map((item, index) => (
-              <Link
-                key={index}
-                href={item.link}
-                className="bg-black w-[40px] h-[40px] flex justify-center items-center"
-              >
-                <Image
-                  src={item.src}
-                  width={20}
-                  height={20}
-                  alt={`Our ${item.name}`}
-                />
-              </Link>
-            ))}
-          </div>
-        </div>
-        <nav className="xl:flex xl:flex-col xl:w-[10%] xl:mt-0 mt-4 pb-2.5 text-base text-slate-700 grid col-span-2 mmd:col-span-2">
-          <h3 className="text-xl font-medium text-black">Links</h3>
-          <div className="flex flex-col mt-4 xl:mt-[26px] space-y-5">
-            {footerLists.map((item, index) => (
-              <Link
-                href={item.link}
-                className="transition duration-150 hover:text-yellow-400 text-base leading-[18px]"
-                key={index}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-        </nav>
-        {/* <div className="xl:flex xl:flex-col xl:w-[20%] xl:mt-0 mt-4 text-base text-slate-700  grid col-span-2 mmd:col-span-2 ">
-          <h3 className="text-xl font-medium text-black">Opening hours</h3>
-          <div className="flex flex-col mt-4 xl:mt-[26px] space-y-5 items-start">
-            {openingLists.map((item, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-[auto_auto] gap-2 3xl:gap-4 lg:text-[1rem] text-sm"
-              >
-                <span className="min-w-[90px]">{`${item.day}: `}</span>
-                <span>{`${item.time}`}</span>
+    <footer className="bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 relative overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-10 left-10 w-32 h-32 bg-amber-400 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-orange-400 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-yellow-400 rounded-full blur-2xl"></div>
+      </div>
+
+      {/* Main Footer Content */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          {/* Brand Section */}
+          <div className="lg:col-span-2">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-amber-200">
+              <div className="flex items-center space-x-4 mb-6">
+                <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-2xl">B</span>
+                </div>
+                <div>
+                  <h2 className="text-3xl font-bold text-amber-800">BiteBuddy</h2>
+                  <p className="text-amber-600 font-medium">Your Food Companion</p>
+                </div>
               </div>
-            ))}
-          </div>
-        </div> */}
-        <div className="xl:flex xl:flex-col xl:w-[30%] xl:mt-0 mt-4 text-base leading-6 text-black grid col-span-2 mmd:col-span-3">
-          <h3 className="text-xl font-medium">Contact information</h3>
-          <div>
-            <div className="flex gap-5 mt-4 xl:mt-[26px]">
-              <div className="bg-black w-[60px] h-[60px] flex justify-center items-center">
-                <Image
-                  src={building}
-                  width={30}
-                  height={30}
-                  alt="Location icon"
-                />
-              </div>
-              <p className="flex-auto my-auto font-normal text-base text-pretty">
-                Mhepi, Kathmandu <br className="block 2xl:hidden" />
+
+              <p className="text-amber-700 leading-relaxed mb-8 text-lg">
+                Discover your favorite meals and order from the best restaurants around you. We bring convenience and
+                flavor to your doorstep with a seamless food ordering experience.
               </p>
+
+              {/* Social Links */}
+              <div className="space-y-6">
+                <h4 className="text-amber-800 font-bold text-lg">Connect With Us</h4>
+                <div className="flex space-x-4">
+                  {socialLinks.map((item, index) => (
+                    <Link
+                      key={index}
+                      href={item.link}
+                      className="group w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 hover:from-orange-500 hover:to-red-500 rounded-2xl flex items-center justify-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl shadow-lg"
+                    >
+                      <Image
+                        src={item.src || "/placeholder.svg"}
+                        width={24}
+                        height={24}
+                        alt={`Our ${item.name}`}
+                        className="group-hover:scale-110 transition-transform duration-200 filter brightness-0 invert"
+                      />
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div className="flex gap-5 mt-8">
-              <div className="bg-black w-[60px] h-[60px] flex justify-center items-center">
-                <Image
-                  src={building}
-                  width={30}
-                  height={30}
-                  alt="Location icon"
-                />
-              </div>
-              <div className="flex-auto my-auto font-normal text-base">
-                <p>Contact number:</p>
-                <span className="text-xl font-bold">(977) 9810350199</span>
-              </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-amber-200 h-full">
+              <h3 className="text-2xl font-bold text-amber-800 mb-6 flex items-center">
+                <div className="w-2 h-8 bg-gradient-to-b from-amber-400 to-orange-500 rounded-full mr-3"></div>
+                Quick Links
+              </h3>
+              <nav className="space-y-4">
+                {footerLists.map((item, index) => (
+                  <Link
+                    key={index}
+                    href={item.link}
+                    className="group flex items-center space-x-3 text-amber-700 hover:text-amber-800 transition-all duration-200 p-2 rounded-lg hover:bg-amber-100/50"
+                  >
+                    <div className="w-2 h-2 bg-amber-400 rounded-full group-hover:scale-150 transition-transform duration-200"></div>
+                    <span className="font-medium">{item.name}</span>
+                  </Link>
+                ))}
+              </nav>
             </div>
-            <div className="flex gap-5 mt-8">
-              <div className="bg-black w-[60px] h-[60px] flex justify-center items-center">
-                <Image
-                  src={building}
-                  width={30}
-                  height={30}
-                  alt="Location icon"
-                />
+          </div>
+
+          {/* Contact Information */}
+          <div>
+            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-amber-200 h-full">
+              <h3 className="text-2xl font-bold text-amber-800 mb-6 flex items-center">
+                <div className="w-2 h-8 bg-gradient-to-b from-amber-400 to-orange-500 rounded-full mr-3"></div>
+                Get in Touch
+              </h3>
+              <div className="space-y-6">
+                {/* Address */}
+                <div className="group flex items-start space-x-4 p-3 rounded-xl hover:bg-amber-100/50 transition-all duration-200">
+                 <div className="w-12 h-12 bg-white border border-amber-400 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-110 transition-transform duration-200">
+                     <MapPin className="w-5 h-5 text-amber-500" />
+                  </div>
+                  <div>
+                  <p className="text-amber-800 font-bold">Address</p>
+                  <p className="text-amber-600">Mhepi, Kathmandu</p>
+                </div>
               </div>
-              <div className="flex-auto my-auto font-normal text-base">
-                <p>Email Address:</p>
-                <a href="mailto:info@dualbrakecarhire.com.au">
-                  info@bitebuddy.com.np
-                </a>
+
+
+                {/* Phone */}
+                <div className="group flex items-start space-x-4 p-3 rounded-xl hover:bg-amber-100/50 transition-all duration-200">
+                  <div className="w-12 h-12 bg-white border border-amber-400 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-110 transition-transform duration-200">
+                    <Phone className="w-5 h-5 text-amber-500" />
+                  </div>
+                  <div>
+                    <p className="text-amber-800 font-bold">Phone</p>
+                    <a
+                      href="tel:+9779768785179"
+                      className="text-amber-600 hover:text-amber-800 transition-colors font-medium"
+                    >
+                      (977) 9768785179
+                    </a>
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div className="group flex items-start space-x-4 p-3 rounded-xl hover:bg-amber-100/50 transition-all duration-200">
+                  <div className="w-12 h-12 bg-white border border-amber-400 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-110 transition-transform duration-200">
+                    <Mail className="w-5 h-5 text-amber-500" />
+                  </div>
+                  <div>
+                    <p className="text-amber-800 font-bold">Email</p>
+                    <a
+                      href="mailto:info@bitebuddy.com.np"
+                      className="text-amber-600 hover:text-amber-800 transition-colors font-medium break-all"
+                    >
+                      info@bitebuddy.com.np
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <hr className="shrink-0 mt-14 max-w-full h-px border border-solid bg-neutral-200 border-neutral-200 max-md:mt-10" />
-      <div className="flex flex-col items-center mmd:flex-row gap-2 md:gap-5 justify-between mt-3 md:mt-6 text-sm text-zinc-600 pb-4">
-        <p className="text-center">
-          © Copyright 2024 . All Rights Reserved.
-        </p>
-        <div className="flex flex-col items-center sm:flex-row gap-2 md:gap-5 justify-between">
-          <nav>
-            <a href="#privacy">Privacy policy</a> |{" "}
-            <a href="#terms">Terms & conditions</a> |
-          </nav>
-          <p>
-            Made with 🖤 by <span className="font-bold">Rajan & Lumana</span>.
-          </p>
+
+      {/* Bottom Bar */}
+      <div className="relative z-10 bg-gradient-to-r from-amber-800 to-orange-800 border-t-4 border-amber-400">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+            <p className="text-amber-100 text-center md:text-left font-medium">
+              © 2024 BiteBuddy. All rights reserved.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-8">
+              <nav className="flex items-center space-x-6">
+                <Link href="#privacy" className="text-amber-200 hover:text-white transition-colors font-medium">
+                  Privacy Policy
+                </Link>
+                <span className="text-amber-400">•</span>
+                <Link href="#terms" className="text-amber-200 hover:text-white transition-colors font-medium">
+                  Terms & Conditions
+                </Link>
+              </nav>
+
+              <div className="flex items-center space-x-2 text-amber-200">
+                <span>Made with</span>
+                <Heart className="w-5 h-5 text-red-400 fill-current animate-pulse" />
+                <span>by</span>
+                <span className="font-bold text-white">Lumana</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

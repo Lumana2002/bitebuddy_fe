@@ -1,28 +1,36 @@
 "use client"
-import Image from 'next/image'
-import hero from '@/public/assets/hero.jpg'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Search } from 'lucide-react'
-import { useState } from 'react'
-import SearchBar from './Search'
+import hero from "@/public/assets/hero.jpg"
+import { Button } from "@/components/ui/button"
+import { Search, MapPin, Filter, Star, Clock } from "lucide-react"
+import SearchBar from "./Search"
 
 const Hero = ({ onSearch }: any) => {
+  return (
+    <section
+      className="relative bg-cover bg-center h-[70vh] min-h-[500px]"
+      style={{ backgroundImage: `url(${hero.src})` }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40"></div>
+      <div className="relative z-10 flex items-center h-full">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+                  Discover Amazing
+                  <span className="block text-amber-400">Restaurants</span>
+                </h1>
+                <p className="text-xl text-gray-200 leading-relaxed">
+                  Find your favorite restaurants and explore new cuisines from the comfort of your home.
+                </p>
+              </div>
 
-    return (
-        <div className="relative bg-cover bg-center h-96" style={{ backgroundImage: `url(${hero.src})` }}>
-            <div className="absolute inset-0 bg-black opacity-50"></div>
-            <div className="relative z-10 flex items-center justify-center h-full mx-[20px] md:mx-[40px] 2xl:mx-[80px] my-2 max-md:flex-wrap">
-                <div className="text-start text-white">
-                    <h1 className="text-5xl font-bold text-secondary">Restaurants</h1>
-                    <p className="mt-4 text-lg">Find your favorite restaurants</p>
-                    <div className='flex mt-4'>
-                        <SearchBar onSearch={onSearch} />
-                    </div>
-                </div>
             </div>
+          </div>
         </div>
-    )
+      </div>
+    </section>
+  )
 }
 
 export default Hero

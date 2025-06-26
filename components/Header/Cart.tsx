@@ -19,15 +19,23 @@ const Cart = () => {
     const cart = useSelector((state: RootState) => state.cart.items);
     const dispatch = useDispatch();
 
-    const menuId = cart.length > 0 ? cart[0].menuId : -1;
+    const menuId = cart.length > 0 ? Number(cart[0].menuId) : -1;
     const menu = useGetMenuDetail(menuId, session?.data?.user?.access_token);
     const restaurantName = menu?.data?.restaurant?.name;
 
     const handleAddItem = (item: Food) => {
-        dispatch(addItem(item));
+        dispatch(addItem({
+            foodId: String(item.foodId),
+            menuId: String(item.menuId),
+            foodName: item.foodName,
+            category: item.category,
+            quantity: item.quantity,
+            price: Number(item.price),
+            spiceLevel: Number(item.spiceLevel)
+        }));
     };
 
-    const handleRemoveItem = (foodId: number) => {
+    const handleRemoveItem = (foodId: string) => {
         dispatch(removeItem(foodId));
     };
 
@@ -36,7 +44,7 @@ const Cart = () => {
     };
 
     const subtotal = cart.reduce(
-        (total, food) => total + parseFloat(food.price) * food.quantity,
+        (total, food) => total + Number(food.price) * food.quantity,
         0
     );
 

@@ -1,32 +1,29 @@
-"use client";
+"use client"
 
-import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
-type NavItemProps = {
-  name: string;
-  href: string;
-};
+interface NavItemProps {
+  href: string
+  name: string
+}
 
-const NavItem = ({ name, href }: NavItemProps) => {
-  const pathname = usePathname();
+const NavItem = ({ href, name }: NavItemProps) => {
+  const pathname = usePathname()
+  const isActive = pathname === href
+
   return (
     <Link
       href={href}
-      className={cn(
-        "px-[10px] py-[30px] text-nav text-black transition duration-150 opacity-80 hover:text-red-600",
-        {
-          "text-red-600  opacity-100": pathname === href,
-        }
-      )}
+      className={`relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
+        isActive
+          ? "bg-gradient-to-r from-amber-400 to-amber-500  text-white shadow-md"
+          : "text-amber-500 hover:text-amber-600"
+      }`}
     >
-      <div className="flex flex-col">
-        {name}
-        <span className={cn("hidden", { "block border-t-2 border-red-600": pathname === href })}></span>
-      </div>
-    </Link >
-  );
-};
+      {name}
+    </Link>
+  )
+}
 
-export default NavItem;
+export default NavItem

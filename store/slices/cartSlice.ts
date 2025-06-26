@@ -1,5 +1,6 @@
 // store/slices/cartSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import type { Food } from "../../app/(main)/restaurants/[id]/_types/food";
 
 interface CartState {
   items: Food[];
@@ -15,7 +16,7 @@ const cartSlice = createSlice({
   reducers: {
     addItem: (state, action: PayloadAction<Food>) => {
       const itemExists = state.items.find(
-        (item) => item.foodId === action.payload.foodId
+        (item: Food) => item.foodId === String(action.payload.foodId)
       );
 
       if (itemExists) {
@@ -23,14 +24,14 @@ const cartSlice = createSlice({
       } else {
         state.items.push({
           ...action.payload,
-          foodName: action.payload.name,
+          foodId: String(action.payload.foodId),
           quantity: 1,
         });
       }
     },
-    removeItem: (state, action: PayloadAction<number>) => {
+    removeItem: (state, action: PayloadAction<string>) => {
       const itemIndex = state.items.findIndex(
-        (item) => item.foodId === action.payload
+        (item: Food) => item.foodId === action.payload
       );
 
       if (itemIndex !== -1) {

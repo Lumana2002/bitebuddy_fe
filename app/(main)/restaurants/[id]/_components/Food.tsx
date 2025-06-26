@@ -7,8 +7,9 @@ import chilly from '@/public/assets/chilli-pepper.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { addItem } from '@/store/slices/cartSlice';
+import type { Food } from '../_types/food';
 
-const Food = ({ food, index }: any) => {
+const Food = ({ food, index }: { food: Food; index: number }) => {
     const dispatch = useDispatch();
 
     const handleAddItem = (item: Food) => {
@@ -19,13 +20,13 @@ const Food = ({ food, index }: any) => {
         <div key={index} className="flex items-center bg-white p-4 rounded-lg shadow-md">
             <Image
                 src={imgPlaceholder}
-                alt={food.name}
+                alt={food.foodName}
                 width={100}
                 height={100}
                 className="rounded-lg"
             />
             <div className="ml-4">
-                <h3 className="text-lg font-semibold">{food.name}</h3>
+                <h3 className="text-lg font-semibold">{food.foodName}</h3>
                 {/* <p className="text-gray-600 mt-1">{item.description}</p> */}
                 <p className="text-gray-800 font-bold mt-2 flex"><span>Rs. {food.price} | </span>
                     <span className='flex gap-2 justify-center items-center ml-2'>
