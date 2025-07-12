@@ -109,7 +109,7 @@ const OrdersPage = () => {
                       >
                         <div className="flex items-center gap-3">
                           <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-                          <span className="font-medium text-gray-800">{detail.foodName}</span>
+                          <span className="font-medium text-gray-800">{detail.name}</span>
                         </div>
                         <div className="flex items-center gap-4">
                           <span className="text-sm text-gray-600">Qty: {detail.quantity}</span>

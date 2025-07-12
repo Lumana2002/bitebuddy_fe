@@ -20,13 +20,13 @@ const Food = ({ food, index }: { food: Food; index: number }) => {
         <div key={index} className="flex items-center bg-white p-4 rounded-lg shadow-md">
             <Image
                 src={imgPlaceholder}
-                alt={food.foodName}
+                alt={food.name}
                 width={100}
                 height={100}
                 className="rounded-lg"
             />
             <div className="ml-4">
-                <h3 className="text-lg font-semibold">{food.foodName}</h3>
+                <h3 className="text-lg font-semibold">{food.name}</h3>
                 {/* <p className="text-gray-600 mt-1">{item.description}</p> */}
                 <p className="text-gray-800 font-bold mt-2 flex"><span>Rs. {food.price} | </span>
                     <span className='flex gap-2 justify-center items-center ml-2'>

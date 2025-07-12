@@ -6,15 +6,21 @@ import {
   PutRequest,
 } from "@/lib/axios/client/axios";
 
+import { getWeatherCondition } from "@/lib/weather";
+
 export const createOrder = async (data: {
   userId: number | undefined;
   body: any;
   token: string | undefined;
 }) => {
   try {
+    const weather = await getWeatherCondition();
     const response = await PostRequest(
       `/api/${data.userId}/orders`,
-      { ...data.body },
+      { 
+        ...data.body,
+        weatherCondition: weather,
+       },
       {
         headers: {
           Authorization: `Bearer ${data.token}`,
@@ -32,13 +38,16 @@ export const createOrder = async (data: {
 export const getAllOrders = async (data: {
   id: number | undefined;
   pageParam: number | 1;
+  token?: string;
 }) => {
   try {
     const response = await GetRequest(
       `/api/${data.id}/orders`,
       { page: data.pageParam },
       {
-        headers: {},
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
       }
     );
     return response.data;

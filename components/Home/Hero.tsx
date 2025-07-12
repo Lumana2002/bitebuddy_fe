@@ -1,7 +1,11 @@
+"use client"
+
 import hero from "@/public/assets/hero.jpg"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search, MapPin, Clock } from "lucide-react"
+import Link from "next/link";
+
 
 const Hero = () => {
   return (
@@ -22,9 +26,11 @@ const Hero = () => {
                 <p className="text-xl text-gray-200 leading-relaxed">
                   Your next meal is just a click away
                 </p>
-                <Button className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white text-lg font-medium rounded-full px-6 py-6 shadow-lg">
-  Explore Restaurants
-</Button>
+                <Link href="/restaurants">
+                  <Button className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white text-lg font-medium rounded-full px-6 py-6 shadow-lg">
+                    Explore Restaurants
+                  </Button>
+                </Link>
               </div>
 
               {/* Search Section */}

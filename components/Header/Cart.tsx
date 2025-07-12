@@ -26,8 +26,8 @@ const Cart = () => {
     const handleAddItem = (item: Food) => {
         dispatch(addItem({
             foodId: String(item.foodId),
-            menuId: String(item.menuId),
-            foodName: item.foodName,
+            menuId: Number(item.menuId),
+            name: item.name,
             category: item.category,
             quantity: item.quantity,
             price: Number(item.price),

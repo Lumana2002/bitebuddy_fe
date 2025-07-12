@@ -26,10 +26,17 @@ const page = () => {
     const restaurantName = menu?.data?.restaurant?.name;
 
     const handleAddItem = (item: Food) => {
-        dispatch(addItem(item));
+        dispatch(addItem({
+            ...item,
+            foodId: String(item.foodId),
+            menuId: String(item.menuId),
+            price: Number(item.price),
+            spiceLevel: Number(item.spiceLevel),
+            quantity: 1
+        }));
     };
 
-    const handleRemoveItem = (foodId: number) => {
+    const handleRemoveItem = (foodId: string) => {
         dispatch(removeItem(foodId));
     };
 

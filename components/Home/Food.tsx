@@ -1,10 +1,12 @@
 "use client"
 
+import React, { useEffect, useState } from "react"
 import Image from "next/image"
 import Autoplay from "embla-carousel-autoplay"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+// import WeatherRecommend from "./WeatherRecommend"
+import { Sparkles } from "lucide-react"
 import { foodItems } from "./list/foodItems"
-import { Sparkles, TrendingUp } from "lucide-react"
 
 const Food = () => {
   return (
@@ -14,12 +16,12 @@ const Food = () => {
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-amber-700 mb-4">
             Find your favorite
-            </h2>
-            <div className="flex justify-center items-center gap-2 text-amber-500 font-semibold mb-4">
+          </h2>
+          <div className="flex justify-center items-center gap-2 text-amber-500 font-semibold mb-4">
             <Sparkles className="h-6 w-6 text-amber-600" />
-    <span className="text-4xl md:text-5xl">Bites</span>
-    <Sparkles className="h-6 w-6 text-amber-500" />
-            </div>
+            <span className="text-4xl md:text-5xl">Bites</span>
+            <Sparkles className="h-6 w-6 text-amber-500" />
+          </div>
           
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Explore foods by categories and discover your next favorite meal
@@ -48,10 +50,9 @@ const Food = () => {
                   key={index}
                   className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
                 >
-                  <div className="group cursor-pointer">
-                    <div className="relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
-
-                    <div className="absolute inset-0 bg-gradient-to-t from-amber-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none z-10"></div>
+                  <div className="">
+                    <div className="relative bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                      <div className="absolute inset-0 bg-gradient-to-t from-amber-600/10 to-transparent opacity-0 rounded-2xl pointer-events-none z-10"></div>
                       {/* Food Image */}
                       <div className="relative mb-4">
                         <div className="absolute inset-0  rounded-full blur-xl group-hover:blur-2xl transition-all duration-300"></div>
@@ -85,13 +86,8 @@ const Food = () => {
           </Carousel>
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">Can't find what you're looking for?</p>
-          <button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            View All Categories
-          </button>
-        </div>
+        {/* Weather-Based Recommendations */}
+        {/* <WeatherRecommend /> */}
       </div>
     </section>
   )

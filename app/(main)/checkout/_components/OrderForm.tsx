@@ -127,22 +127,9 @@ const OrderForm = () => {
 
     const onSubmit = async (data: TOrder) => {
         let deliveryDateTime = new Date();
-        if (selectedPayment === "esewa") {
-            console.log("Esewa Payment");
-            router.push('/');
-        }
-
-        if (isScheduleDelivery) {
-            const deliveryDate = data.deliveryDate;
-            const deliveryTime = data.deliveryTime;
-
-            const dateTimeString = `${deliveryDate}T${deliveryTime}`;
-
-            deliveryDateTime = new Date(dateTimeString);
-
-        }
-
-        const additionalFields = {
+        
+        try {
+          const additionalFields = {
             restaurantId: menu.data?.restaurant.restaurantId,
             paymentStatus: 'pending',
             orderStatus: 'unfulfilled',
@@ -151,21 +138,38 @@ const OrderForm = () => {
             orderDate: new Date().toISOString(),
             averagePrice: averagePrice,
             deliveryDate: deliveryDateTime.toISOString(),
-        };
+          };
 
-        const { deliveryTime, ...remainingData } = data;
+          const { deliveryTime, ...remainingData } = data;
 
-        const orderData = {
-            userId: Number(user?.id),
-            body: {
-                ...remainingData,
-                ...additionalFields
-            },
-            token: session?.data?.user?.access_token
-        };
-        console.log(orderData)
-        mutate(orderData);
-        handleClearCart();
+          const orderData = {
+            ...remainingData,
+            ...additionalFields,
+            menuId: String(menuId),
+            userId: String(user?.id),
+            items: cart.map(item => ({
+              foodId: String(item.foodId),
+              quantity: item.quantity,
+              price: Number(item.price)
+            })),
+            subtotal: Number(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)),
+            deliveryCharge: 120,
+            total: Number(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 120)
+          };
+
+          await createOrder({
+            userId: user?.id,
+            body: orderData,
+            token: user?.access_token
+          });
+
+          dispatch(clearCart());
+          toast.success('Order placed successfully!');
+          router.push('/profile/orders');
+        } catch (error) {
+          console.error('Failed to place order:', error);
+          toast.error('Failed to place order. Please try again.');
+        }
     };
 
     return (

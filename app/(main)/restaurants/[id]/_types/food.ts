@@ -1,11 +1,13 @@
 export interface Food {
   foodId: string;
   menuId: string;
-  foodName: string;
+  name: string;
   category: string;
   quantity: number;
   price: number;
-  description?: string;
   spiceLevel: number;
   image?: string;
+  description?: string;
+  weather?: string;
+  href?: string;
 }

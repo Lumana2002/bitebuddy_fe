@@ -16,7 +16,7 @@ const cartSlice = createSlice({
   reducers: {
     addItem: (state, action: PayloadAction<Food>) => {
       const itemExists = state.items.find(
-        (item: Food) => item.foodId === String(action.payload.foodId)
+        (item) => item.foodId === String(action.payload.foodId)
       );
 
       if (itemExists) {
@@ -25,13 +25,16 @@ const cartSlice = createSlice({
         state.items.push({
           ...action.payload,
           foodId: String(action.payload.foodId),
+          menuId: String(action.payload.menuId),
           quantity: 1,
+          price: Number(action.payload.price),
+          spiceLevel: Number(action.payload.spiceLevel)
         });
       }
     },
     removeItem: (state, action: PayloadAction<string>) => {
       const itemIndex = state.items.findIndex(
-        (item: Food) => item.foodId === action.payload
+        (item: Food) => item.foodId === String(action.payload)
       );
 
       if (itemIndex !== -1) {

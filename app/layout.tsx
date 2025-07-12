@@ -7,7 +7,6 @@ import NextAuthSessionProvider from "@/components/SessionProvider";
 import QueryProvider from "@/components/QueryProvider";
 import ReduxProvider from "@/components/ReduxProvider";
 
-
 const rubik = Rubik({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -28,13 +27,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={rubik.className}>
         <Toaster position="top-center" reverseOrder={true} />
-        <ReduxProvider>
-          <NextAuthSessionProvider>
-            <QueryProvider>
+        <NextAuthSessionProvider>
+          <QueryProvider>
+            <ReduxProvider>
               {children}
-            </QueryProvider>
-          </NextAuthSessionProvider>
-        </ReduxProvider>
+            </ReduxProvider>
+          </QueryProvider>
+        </NextAuthSessionProvider>
       </body>
     </html>
   );
