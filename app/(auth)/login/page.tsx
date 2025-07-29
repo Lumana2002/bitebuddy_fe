@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import LoginForm from '../_components/LoginForm';
-import { useSession } from 'next-auth/react';
+import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Loading from '@/components/Loading';
 

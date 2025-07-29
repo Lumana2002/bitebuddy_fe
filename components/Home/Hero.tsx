@@ -4,34 +4,52 @@ import hero from "@/public/assets/hero.jpg"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search, MapPin, Clock } from "lucide-react"
-import Link from "next/link";
-
+import Link from "next/link"
+import { motion } from "framer-motion"
 
 const Hero = () => {
   return (
     <section
-      className="relative bg-cover bg-center h-[70vh] min-h-[500px]"
+      className="relative bg-cover bg-center h-[75vh] min-h-[550px] overflow-hidden"
       style={{ backgroundImage: `url(${hero.src})` }}
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/50"></div>
       <div className="relative z-10 flex items-center h-full">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+            <div className="space-y-12">
+              <div className="space-y-8">
+                <motion.h1 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent leading-tight tracking-tight"
+                >
                   Hungry?
-                  <span className="block text-amber-400">We've got you covered</span>
-                </h1>
-                <p className="text-xl text-gray-200 leading-relaxed">
-                  Your next meal is just a click away
-                </p>
+                  <span className="block bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">We've got you covered</span>
+                </motion.h1>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-xl mb-8"
+                >
+                  Your next meal is just a click away. Discover the best restaurants in your area and order your favorite dishes with ease.
+                </motion.p>
                 <Link href="/restaurants">
-                  <Button className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white text-lg font-medium rounded-full px-6 py-6 shadow-lg">
-                    Explore Restaurants
-                  </Button>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="mt-8"
+                  >
+                    <Button 
+                      className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white text-lg font-medium rounded-full px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    >
+                      Explore Restaurants
+                    </Button>
+                  </motion.div>
                 </Link>
-              </div>
 
               {/* Search Section */}
               {/* <div className="bg-white rounded-lg p-4 shadow-xl">
@@ -76,7 +94,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
-      {/* </div> */}
+      </div>
      </section>
   )
 }

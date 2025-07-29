@@ -10,21 +10,15 @@ import { foodItems } from "./list/foodItems"
 
 const Food = () => {
   return (
-    <section className="py-16 bg-gradient-to-b from-amber-50/30 to-white">
+    <section className="py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-amber-700 mb-4">
-            Find your favorite
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-medium text-amber-500 mb-2">
+            Food Categories
           </h2>
-          <div className="flex justify-center items-center gap-2 text-amber-500 font-semibold mb-4">
-            <Sparkles className="h-6 w-6 text-amber-600" />
-            <span className="text-4xl md:text-5xl">Bites</span>
-            <Sparkles className="h-6 w-6 text-amber-500" />
-          </div>
-          
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Explore foods by categories and discover your next favorite meal
+          <p className="text-gray-600">
+            Browse our selection of delicious options
           </p>
         </div>
 
@@ -48,29 +42,22 @@ const Food = () => {
               {foodItems.map((food, index) => (
                 <CarouselItem
                   key={index}
-                  className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
+                  className="pl-2 md:pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6 xl:basis-1/7"
                 >
-                  <div className="">
-                    <div className="relative bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                      <div className="absolute inset-0 bg-gradient-to-t from-amber-600/10 to-transparent opacity-0 rounded-2xl pointer-events-none z-10"></div>
-                      {/* Food Image */}
-                      <div className="relative mb-4">
-                        <div className="absolute inset-0  rounded-full blur-xl group-hover:blur-2xl transition-all duration-300"></div>
-                        <Image
-                          src={food.image || "/placeholder.svg"}
-                          alt={food.name}
-                          width={120}
-                          height={120}
-                          className="relative w-full h-24 sm:h-28 md:h-32 object-cover rounded-full border-4 border-white shadow-lg group-hover:scale-110 transition-transform duration-300"
-                        />
-                      </div>
-
-                      {/* Food Name */}
-                      <div className="text-center">
-                        <h3 className="font-bold text-gray-900 text-sm md:text-base group-hover:text-amber-600 transition-colors duration-200">
+                  <div className="px-1">
+                    <div className="bg-white p-4 border border-gray-100 rounded-lg hover:shadow-sm transition-shadow h-full">
+                      <div className="flex flex-col items-center h-full">
+                        <div className="relative aspect-square mb-3 w-full">
+                          <Image
+                            src={food.image || "/placeholder.svg"}
+                            alt={food.name}
+                            fill
+                            className="object-cover rounded-full"
+                          />
+                        </div>
+                        <h3 className="text-sm font-medium text-gray-800">
                           {food.name}
                         </h3>
-                        <div className="mt-2 h-1 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
                       </div>
                     </div>
                   </div>
@@ -80,8 +67,8 @@ const Food = () => {
 
             {/* Navigation Buttons */}
             <div className="hidden md:block">
-              <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm border-2 hover:bg-amber-50 hover:border-amber-300 text-amber-700 shadow-lg" />
-              <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm border-2  hover:bg-amber-50 hover:border-amber-300 text-amber-700 shadow-lg" />
+              <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border hover:bg-gray-50 text-gray-700" />
+              <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border hover:bg-gray-50 text-gray-700" />
             </div>
           </Carousel>
         </div>

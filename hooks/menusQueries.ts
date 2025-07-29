@@ -17,10 +17,11 @@ export const useGetRestaurantMenus = (
   return { data, isPending };
 };
 
-export const useGetMenuDetail = (id: number, token: string | undefined) => {
+export const useGetMenuDetail = (id: number | null, token: string | undefined) => {
   const { data, isPending } = useQuery<Menu>({
     queryKey: ["menu", id],
-    queryFn: () => getMenuDetail(id, token),
+    queryFn: () => getMenuDetail(id!, token),
+    enabled: !!id && id > 0,
   });
 
   return { data, isPending };

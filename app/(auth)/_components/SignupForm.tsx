@@ -43,7 +43,7 @@ export default function SignupForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="py-10 flex justify-center relative overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-20 w-32 h-32 bg-amber-400 rounded-full blur-3xl animate-pulse"></div>
@@ -53,15 +53,9 @@ export default function SignupForm() {
 
       <div className="relative z-10 w-full max-w-lg">
         {/* Header Card */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-t-3xl p-8 shadow-lg border border-amber-200">
+        <div className="bg-white/80 backdrop-blur-sm rounded-t-3xl p-3 shadow-lg border border-amber-200">
           <div className="text-center">
-            
-            <div className="flex items-center justify-center gap-2 mb-2">
-            
-              <h1 className="text-2xl font-bold text-amber-800">Register</h1>
-        
-            </div>
-            <p className="text-amber-600 font-medium">Create your account and start your food journey</p>
+            <h1 className="text-3xl font-bold text-amber-800 mb-2">Register</h1>
           </div>
         </div>
 

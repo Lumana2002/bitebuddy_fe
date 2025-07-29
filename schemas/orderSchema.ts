@@ -26,4 +26,15 @@ export const OrderSchema = z.object({
   cancellationReason: z.string().optional(),
 });
 
+// Schema for FORM VALIDATION (only user inputs)
+export const OrderFormSchema = z.object({
+  deliveryAddress: z
+    .string({ required_error: "Delivery Address is required" })
+    .min(1, { message: "Delivery Address is required" }),
+  deliveryDate: z.string({ required_error: "Delivery date is required" }),
+  deliveryTime: z.string().optional(),
+  specialInstructions: z.string().optional(),
+});
+
+export type TOrderForm = z.infer<typeof OrderFormSchema>;
 export type TOrder = z.infer<typeof OrderSchema>;

@@ -11,9 +11,10 @@ async function loginWithEmailAndPassword(
 ): Promise<LoginResponseData | undefined> {
   try {
     const res = await PostRequest(`/api/auth/login`, { email, password }, {});
+
     return res.data;
   } catch (error) {
-    console.log("hi");
+    console.log("Login failed:",error);
     throw new Error("Failed to fetch user.");
   }
 }
@@ -28,28 +29,27 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string() })
           .safeParse(credentials);
-
-        console.log(parsedCredentials);
-
+      
         if (!parsedCredentials.success) throw new Error("Invalid Credentials");
+        
         const { email, password } = parsedCredentials.data;
-        // console.log(email || "abc")
         const res = await loginWithEmailAndPassword(email, password);
-
+      
         if (!res) {
-          throw new Error("Invaid Credentials");
+          throw new Error("Invalid Credentials");
         }
-
+      
         const UserData = {
-          id: res.user.id.toString(),
+          id: Number(res.user.id),  // Convert string to number
           access_token: res.token,
-          firstName: `${res.user.firstName}`,
-          lastName: `${res.user.lastName}`,
+          firstName: res.user.firstName,
+          lastName: res.user.lastName,
           email: res.user.email,
           role: res.user.role,
         };
+        
         return UserData;
-      },
+      }
     }),
   ],
 });

@@ -7,7 +7,7 @@ import SearchBar from "./Search"
 const Hero = ({ onSearch }: any) => {
   return (
     <section
-      className="relative bg-cover bg-center h-[70vh] min-h-[500px]"
+      className="relative bg-cover bg-center h-[80vh] min-h-[600px] overflow-hidden"
       style={{ backgroundImage: `url(${hero.src})` }}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40"></div>
@@ -16,11 +16,11 @@ const Hero = ({ onSearch }: any) => {
           <div className="max-w-3xl">
             <div className="space-y-6">
               <div className="space-y-4">
-                <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+                <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight">
                   Discover Amazing
                   <span className="block text-amber-400">Restaurants</span>
                 </h1>
-                <p className="text-xl text-gray-200 leading-relaxed">
+                <p className="text-lg md:text-xl text-gray-200 leading-relaxed mb-8">
                   Find your favorite restaurants and explore new cuisines from the comfort of your home.
                 </p>
               </div>

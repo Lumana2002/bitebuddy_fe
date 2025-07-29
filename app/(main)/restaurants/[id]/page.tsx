@@ -115,7 +115,7 @@ const Page = () => {
           selectedCategory={selectedCategory}
           foodItems={filteredItems.map((item) => ({
             foodId: String(item.foodId),
-            menuId: Number(item.menuId),
+            menuId: String(item.menuId),
             name: item.name,
             category: item.category,
             quantity: item.quantity,

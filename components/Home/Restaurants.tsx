@@ -13,44 +13,41 @@ const Restaurants = () => {
   if (isPending) return <Loading />
 
   return (
-    <section className="mt-16 md:mt-24 mx-4 md:mx-8 2xl:mx-16">
+    <section className="py-12 px-4 md:px-8 max-w-7xl mx-auto">
       {/* Header Section */}
-      <div className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Featured Restaurants</h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">Discover the best dining experiences in your area</p>
-        <div className="w-24 h-1 bg-amber-500 mx-auto mt-6 rounded-full"></div>
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-medium text-amber-500 mb-2">Featured Restaurants</h2>
+        <p className="text-gray-600">Discover quality dining experiences</p>
       </div>
 
       {/* Restaurant Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {restaurantData?.content.slice(0, 8).map((item, index) => (
           <Link
             href={`/restaurants/${item.restaurantId}`}
             key={index}
-            className="group block transform transition-all duration-300 hover:scale-105"
+            className="group block"
           >
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 group-hover:shadow-2xl transition-all duration-300">
-              {/* Image Container */}
-              <div className="relative overflow-hidden">
-                <div className="aspect-square relative">
-                  <Image
-                    src={item?.image || restaurant}
-                    alt={`${item.name} restaurant`}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  {/* Overlay gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                </div>
+            <div className="bg-white rounded-lg border border-gray-100 hover:shadow-sm transition-shadow h-full">
+              {/* Image */}
+              <div className="aspect-[4/3] relative">
+                <Image
+                  src={item?.image || restaurant}
+                  alt={`${item.name} restaurant`}
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-amber-600 transition-colors duration-200">
+              <div className="p-4">
+                <h3 className="font-medium text-gray-800">
                   {item.name}
                 </h3>
-
+                <div className="flex items-center mt-1 text-sm text-gray-500">
+                  <MapPin className="w-3.5 h-3.5 mr-1" />
+                  {/* <span>{item.location || 'Kathmandu'}</span> */}
+                </div>
               </div>
             </div>
           </Link>
@@ -58,9 +55,9 @@ const Restaurants = () => {
       </div>
 
       {/* View More Section */}
-      <div className="text-center mt-16">
+      <div className="text-center mt-12">
         <Link href="/restaurants">
-          <button className="bg-amber-500 text-white px-8 py-3 rounded-xl font-semibold text-lg shadow-lg transition-all duration-200 hover:bg-amber-600 hover:shadow-xl">
+          <button className="bg-amber-500 text-white px-6 py-2.5 rounded-lg font-medium text-base hover:bg-amber-600 transition-colors">
             View All Restaurants
           </button>
         </Link>

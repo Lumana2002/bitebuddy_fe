@@ -39,10 +39,10 @@ const MblNavbar = () => {
                 src={logo || "/placeholder.svg"}
                 width={40}
                 height={40}
-                alt="BiteBuddy Logo"
+                alt="FoodHub Logo"
                 className="rounded-lg"
               />
-              <h1 className="text-xl font-bold text-amber-950">BiteBuddy</h1>
+              <h1 className="text-xl font-bold text-amber-950">FoodHub</h1>
             </Link>
           </div>
 

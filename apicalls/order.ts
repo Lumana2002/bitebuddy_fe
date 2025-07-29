@@ -14,13 +14,10 @@ export const createOrder = async (data: {
   token: string | undefined;
 }) => {
   try {
-    const weather = await getWeatherCondition();
+    // Removed weather condition from the order data
     const response = await PostRequest(
       `/api/${data.userId}/orders`,
-      { 
-        ...data.body,
-        weatherCondition: weather,
-       },
+      data.body,
       {
         headers: {
           Authorization: `Bearer ${data.token}`,

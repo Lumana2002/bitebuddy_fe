@@ -8,7 +8,7 @@ import NavItem from "./NavItem"
 import { Button } from "@/components/ui/button"
 import MblNavbar from "./MblNavbar"
 import { useSession } from "next-auth/react"
-import { CircleUser, Truck, Bell } from "lucide-react"
+import { CircleUser, Truck } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,34 +24,33 @@ const Navbar = () => {
   const userRole = session?.user?.role
 
   return (
-    <header className="bg-gradient-to-r from-slate-50 to-gray-100 shadow-lg border-b-2 border-amber-200">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Bar */}
-        <div className="flex h-20 items-center justify-between">
-          {/* Logo Section - Enhanced */}
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo Section */}
           <Link
             href="/"
-            className="group flex items-center space-x-4 p-2 rounded-xl hover:bg-white/50 transition-all duration-300"
+            className="group flex items-center space-x-3 p-2 rounded-lg hover:bg-white/50 transition-all duration-200"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-amber-400 rounded-xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-500 rounded-lg blur-sm opacity-20 group-hover:opacity-40 transition-opacity"></div>
               <Image
                 src={logo || "/placeholder.svg"}
-                width={48}
-                height={48}
-                alt="BiteBuddy Logo"
-                className="relative rounded-xl shadow-md"
+                width={40}
+                height={40}
+                alt="FoodHub Logo"
+                className="relative rounded-lg shadow-sm"
               />
             </div>
             <div className="flex flex-col">
-              <h1 className="text-2xl font-semibold text-amber-600 tracking-tight">FoodHub</h1>
+              <h1 className="text-xl font-semibold text-amber-600 tracking-tight">FoodHub</h1>
             </div>
           </Link>
 
-          {/* Center Navigation - Pill Style */}
+          {/* Center Navigation */}
           <nav className="hidden mmd:block">
-            <div className="bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg border border-amber-100">
-              <div className="flex items-center space-x-1">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl px-4 py-2 shadow-sm border border-gray-100">
+              <div className="flex items-center space-x-2">
                 {navItems.map((link, index) => (
                   <NavItem key={index} href={link.href} name={link.name} />
                 ))}
@@ -59,24 +58,24 @@ const Navbar = () => {
             </div>
           </nav>
 
-          {/* Right Section - Card Style */}
-          <div className="flex items-center space-x-3">
+          {/* Right Section */}
+          <div className="flex items-center space-x-2">
             {!session ? (
-              <div className="hidden mmd:flex items-center bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg border border-amber-100 space-x-2">
+              <div className="hidden mmd:flex items-center bg-white/80 backdrop-blur-sm rounded-xl px-3 py-1.5 shadow-sm border border-gray-100 space-x-1">
                 <Link href="/login">
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-amber-500 hover:text-amber-600 hover:bg-amber-50 font-medium rounded-full px-4"
+                    className="text-amber-500 hover:text-amber-600 hover:bg-amber-50 font-medium rounded-full px-3"
                   >
                     Login
                   </Button>
                 </Link>
-                <div className="w-px h-6 bg-amber-200"></div>
+                <div className="w-px h-4 bg-gray-200"></div>
                 <Link href="/signup">
                   <Button
                     size="sm"
-                    className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white font-medium rounded-full px-6 shadow-md"
+                    className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white font-medium rounded-full px-4 shadow-sm"
                   >
                     Sign Up
                   </Button>
@@ -87,21 +86,13 @@ const Navbar = () => {
                 {userRole === "ADMIN" || userRole === "RESTAURANT" ? (
                   <div className="hidden mmd:block">
                     <Link href={userRole === "RESTAURANT" ? "/restaurantDashboard" : "/dashboard"}>
-                      <Button className="bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-900 hover:to-black text-white font-medium px-8 py-3 rounded-full shadow-lg border-2 border-slate-700">
+                      <Button className="bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-900 hover:to-black text-white font-medium px-6 py-2 rounded-full shadow-sm border-2 border-slate-700">
                         Dashboard
                       </Button>
                     </Link>
                   </div>
                 ) : (
-                  <div className="hidden mmd:flex items-center space-x-3">
-                    {/* Notification Bell */}
-                    <button className="relative p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg border border-amber-100 hover:bg-white transition-all duration-200">
-                      <Bell className="h-5 w-5 text-amber-700" />
-                      <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full text-xs text-white flex items-center justify-center font-bold">
-                        3
-                      </span>
-                    </button>
-
+                  <div className="hidden mmd:flex items-center space-x-2">
                     {/* Cart */}
                     <div className="bg-white/80 backdrop-blur-sm rounded-full shadow-lg border border-amber-100 p-1">
                       <Cart />

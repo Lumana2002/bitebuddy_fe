@@ -22,7 +22,7 @@ const page = () => {
     const dispatch = useDispatch();
 
     const menuId = cart.length > 0 ? cart[0].menuId : -1;
-    const menu = useGetMenuDetail(menuId, session?.data?.user?.access_token);
+    const menu = useGetMenuDetail(Number(menuId), session?.data?.user?.access_token);
     const restaurantName = menu?.data?.restaurant?.name;
 
     const handleAddItem = (item: Food) => {
@@ -45,7 +45,7 @@ const page = () => {
     };
 
     const subtotal = cart.reduce(
-        (total, food) => total + parseFloat(food.price) * food.quantity,
+        (total, food) => total + Number(food.price) * food.quantity,
         0
     );
 
