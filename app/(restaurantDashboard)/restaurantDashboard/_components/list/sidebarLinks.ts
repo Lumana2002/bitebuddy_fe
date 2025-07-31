@@ -13,4 +13,9 @@ export const sidebarLinks = [
     name: "Profile",
     link: "/restaurantDashboard/profile",
   },
+
+  {
+    name: "Orders",
+    link: "/restaurantDashboard/orders",
+  },
 ];

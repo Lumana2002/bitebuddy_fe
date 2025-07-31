@@ -12,7 +12,7 @@ const page = () => {
           Menus and Foods
         </h1>
         <Link href={"/restaurantDashboard/menus/add_menu"} className='xvsm:p-0 pb-6 m-0'>
-          <Button className="px-5 py-2.5 my-auto text-[16px] bg-primary hover:bg-primary/80 font-medium text-white rounded-md  border-r-0">
+          <Button className="px-5 py-2.5 my-auto text-[16px] bg-amber-600 hover:bg-amber-500 font-medium text-white rounded-md  border-r-0">
             <PlusCircle className="size-5" />
             &nbsp; Add Menu 
           </Button>

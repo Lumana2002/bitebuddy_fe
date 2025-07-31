@@ -51,44 +51,57 @@ const ChangePasswordForm = ({ token }: Props) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-y-8 py-10 px-5 vsm:px-14 rounded-lg border border-input shadow"
-    >
-      <InputBox<TChangePass>
-        name="current_password"
-        id="current_password"
-        placeholder="Enter Current Password..."
-        type="password"
-        register={register}
-        error={(errors && errors?.current_password?.message?.toString()) || ""}
-        desc="enter the current password."
-        label="Current Password"
-      />
+    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+      <div className="px-6 py-5 border-b border-gray-200">
+        <h2 className="text-lg font-medium text-gray-900">Change Password</h2>
+        <p className="mt-1 text-sm text-gray-500">
+          Update your account password
+        </p>
+      </div>
+      
+      <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
+        <div className="space-y-4">
+          <InputBox<TChangePass>
+            name="current_password"
+            id="current_password"
+            placeholder="••••••••"
+            type="password"
+            register={register}
+            error={errors?.current_password?.message?.toString() || ""}
+            label="Current Password"
+            className="bg-gray-50 border-gray-200 focus:border-gray-400"
+          />
 
-      <InputBox<TChangePass>
-        name="password"
-        id="password"
-        placeholder="Enter New Password..."
-        type="password"
-        register={register}
-        error={(errors && errors?.password?.message?.toString()) || ""}
-        desc="enter the new password."
-        label="New Password"
-      />
+          <InputBox<TChangePass>
+            name="password"
+            id="password"
+            placeholder="••••••••"
+            type="password"
+            register={register}
+            error={errors?.password?.message?.toString() || ""}
+            label="New Password"
+            className="bg-gray-50 border-gray-200 focus:border-gray-400"
+          />
+        </div>
 
-      {/* Form Submission */}
-      <Button type="submit" className="px-5 py-2.5 my-auto text-[16px] w-[200px] h-[40px] font-medium rounded-md border-r-0 ">
-        {Updating ? (
-          <div className="flex items-center gap-2">
-            <Loader2 className="size-5 animate-spin" />
-            <p>Changing Password..</p>
-          </div>
-        ) : (
-          "Change Password"
-        )}
-      </Button>
-    </form>
+        <div className="flex justify-end pt-2">
+          <Button 
+            type="submit" 
+            className="w-full sm:w-auto px-6"
+            disabled={Updating}
+          >
+            {Updating ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Updating...
+              </>
+            ) : (
+              'Update Password'
+            )}
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 };
 

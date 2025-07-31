@@ -73,73 +73,65 @@ const UserForm = ({ id, token }: Props) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-y-8 py-10 px-5 vsm:px-14 rounded-lg border border-input shadow"
-    >
-      <InputBox<TUser>
-        name="firstName"
-        id="firstName"
-        placeholder="Enter First Name..."
-        register={register}
-        error={(errors && errors?.firstName?.message?.toString()) || ""}
-        desc="enter the first name."
-        label="First Name"
-      />
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <InputBox<TUser>
+          name="firstName"
+          id="firstName"
+          placeholder="John"
+          register={register}
+          error={errors?.firstName?.message?.toString() || ""}
+          label="First Name"
+          className="bg-gray-50 border-gray-200 focus:border-gray-400"
+        />
 
-      <InputBox<TUser>
-        name="lastName"
-        id="lastName"
-        placeholder="Enter Last Name..."
-        register={register}
-        error={(errors && errors?.lastName?.message?.toString()) || ""}
-        desc="enter the last name."
-        label="Last Name"
-      />
-      <InputBox<TUser>
-        name="email"
-        id="email"
-        placeholder="Enter Email..."
-        register={register}
-        error={(errors && errors?.email?.message?.toString()) || ""}
-        desc="enter the email."
-        label="Email"
-      />
-      <InputBox<TUser>
-        name="contact"
-        id="contact"
-        placeholder="Enter Contact..."
-        register={register}
-        error={(errors && errors?.contact?.message?.toString()) || ""}
-        desc="enter the contact."
-        label="Contact"
-      />
-      <div className="flex flex-col vvsm:flex-row gap-10">
-        <Link
-          href={"/dashboard/profile/change-password"}
-          className="text-primary transition underline underline-offset-2 font-semibold"
-        >
-          <Button
-            type="submit"
-            className="px-5 py-2.5 my-auto text-[16px] w-[200px] h-[40px] font-medium rounded-md border-r-0 "
-          >
-            {" "}
-            Change Password
-          </Button>
-        </Link>
+        <InputBox<TUser>
+          name="lastName"
+          id="lastName"
+          placeholder="Doe"
+          register={register}
+          error={errors?.lastName?.message?.toString() || ""}
+          label="Last Name"
+          className="bg-gray-50 border-gray-200 focus:border-gray-400"
+        />
+      </div>
 
-        {/* Form Submission */}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <InputBox<TUser>
+          name="email"
+          id="email"
+          type="email"
+          placeholder="john@example.com"
+          register={register}
+          error={errors?.email?.message?.toString() || ""}
+          label="Email Address"
+          className="bg-gray-50 border-gray-200 focus:border-gray-400"
+        />
+
+        <InputBox<TUser>
+          name="contact"
+          id="contact"
+          placeholder="+1 (555) 000-0000"
+          register={register}
+          error={errors?.contact?.message?.toString() || ""}
+          label="Phone Number"
+          className="bg-gray-50 border-gray-200 focus:border-gray-400"
+        />
+      </div>
+
+      <div className="flex justify-end pt-4">
         <Button
           type="submit"
-          className="px-5 py-2.5 my-auto text-[16px] w-[200px] h-[40px] font-medium rounded-md border-r-0 "
+          className="w-full sm:w-auto px-6"
+          disabled={Updating}
         >
           {Updating ? (
-            <div className="flex items-center gap-2">
-              <Loader2 className="size-5 animate-spin" />
-              <p>Updating..</p>
-            </div>
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Updating...
+            </>
           ) : (
-            "Update User Details"
+            'Save Changes'
           )}
         </Button>
       </div>

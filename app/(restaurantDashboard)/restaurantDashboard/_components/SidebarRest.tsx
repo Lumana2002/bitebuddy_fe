@@ -14,7 +14,7 @@ const SidebarRest = () => {
   const { data, isPending } = useGetRestaurantUser(session?.data?.user.id, session?.data?.user?.access_token);
 
   return (
-    <aside className="custom-scrollbar hidden py-10 fixed left-0 top-0 h-screen overflow-y-auto w-[250px] bg-gray-100 text-background lg:flex flex-col items-start gap-y-14 border-r border-r-primary">
+    <aside className="custom-scrollbar hidden py-10 fixed left-0 top-0 h-screen overflow-y-auto w-[250px] bg-gray-100 text-background lg:flex flex-col items-start gap-y-14 border-amber-400">
       <Link href={"/"} className="px-8">
         <Image
           src={data?.image || logo}

@@ -12,7 +12,7 @@ const page = () => {
                 </h1>
                 <Link href={"/restaurantDashboard/menus"}>
                     <Button
-                        className="flex items-center justify-start gap-x-1 text-background bg-primary hover:bg-primary/80"
+                        className="flex items-center justify-start gap-x-1 text-background bg-amber-600 hover:bg-amber-400"
                         variant={"secondary"}
                     >
                         <ChevronLeft className="size-6" />

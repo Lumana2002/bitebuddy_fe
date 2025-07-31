@@ -20,62 +20,47 @@ const MenusTable = () => {
 
 
   return (
-    <div className="w-full relative overflow-hidden rounded-md shadow border border-input mb-10">
-      <div className="w-full table-wrapper overflow-x-auto">
-        <table className="min-w-[700px] relative w-full text-left">
-          <thead className="border-b bg-gray-50 uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Id
+    <div className="w-full relative overflow-hidden border border-gray-200 rounded-lg mb-10 bg-gray-50/30">
+      <div className="w-full overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr className="text-sm text-gray-500">
+              <th scope="col" className="px-4 py-3 text-left">
+                ID
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3 text-left">
                 Name
               </th>
-              <th scope="col" className="pl-6 py-3 pr-14 text-end">
+              <th scope="col" className="px-4 py-3 text-right">
                 Actions
               </th>
             </tr>
           </thead>
 
-          <tbody className="w-full opacity-80">
-            {menuData?.content?.map(
-              ({ menuId, name }: any) => (
-                <tr
-                  key={menuId}
-                  className={cn(
-                    "text-sm border-b odd:bg-white even:bg-gray-50"
-                  )}
-                >
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
-                    {menuId}
-                  </td>
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
-                    {name}
-                  </td>
-                  <td
-                    scope="row"
-                    className="flex justify-end whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white gap-2"
-                  >
-
-                    <Link href={`/restaurantDashboard/menus/${menuId}`}>
+          <tbody className="bg-white/80 divide-y divide-gray-100">
+            {menuData?.content?.map(({ menuId, name }: any) => (
+              <tr key={menuId} className="hover:bg-gray-50/50 transition-colors">
+                <td className="px-4 py-3 text-sm text-gray-700">
+                  {menuId}
+                </td>
+                <td className="px-4 py-3 text-sm text-gray-700">
+                  {name}
+                </td>
+                <td className="px-4 py-3 text-right text-sm">
+                  <div className="flex justify-end space-x-2">
+                    <Link href={`/restaurant-dashboard/menus/${menuId}`}>
                       <Button
-                        variant={"secondary"}
-                        size={"icon"}
-                        className="text-background"
+                        variant="ghost"
+                        size="sm"
+                        className="text-gray-500 hover:text-gray-700"
                       >
-                        <Edit className="size-5" />
+                        <Edit className="h-4 w-4" />
                       </Button>
                     </Link>
-                  </td>
-                </tr>
-              )
-            )}
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -87,13 +72,13 @@ const MenusTable = () => {
       )}
 
       {!menuData && !isPending && (
-        <h3 className="w-full text-destructive font-bold text-center py-4">
+        <h3 className="w-full text-amber-600 font-bold text-center py-4">
           Something went wrong.
         </h3>
       )}
 
       {menuData?.content?.length === 0 && (
-        <h3 className="w-full text-destructive font-bold text-center py-4">
+        <h3 className="w-full text-amber-600 font-bold text-center py-4">
           Currently, no menus found.
         </h3>
       )}

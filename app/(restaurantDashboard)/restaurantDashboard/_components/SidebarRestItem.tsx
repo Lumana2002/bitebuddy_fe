@@ -21,7 +21,7 @@ const SidebarRestItem = ({ item: { link, name } }: SidebarItemProps) => {
       className={cn(
         "flex items-center gap-x-1 text-foreground transition duration-150 ease-in-out hover:bg-primary/20 w-full font-medium opacity-80 text-lg py-4 pl-8",
         {
-          "text-primary  font-bold opacity-100 border-r-[4px] border-r-primary/80":
+          "text-amber-600  font-bold opacity-100 border-r-[4px] border-r-amber-600/80":
             pathname === link || (link !== '/restaurantDashboard' && pathname.startsWith(link)),
         }
       )}

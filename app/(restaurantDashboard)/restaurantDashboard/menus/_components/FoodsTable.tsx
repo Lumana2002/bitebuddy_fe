@@ -57,125 +57,108 @@ const FoodsTable = () => {
         (_, index) => index + 1
     );
 
-
     console.log(foodData)
 
     return (
-        <div className="w-full relative overflow-hidden rounded-md shadow border border-input mb-10">
-            <div className="w-full table-wrapper overflow-x-auto">
-                <table className="min-w-[700px] relative w-full text-left">
-                    <thead className="border-b bg-gray-50 uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" className="px-6 py-3">
-                                Id
+        <div className="w-full relative overflow-hidden border border-gray-200 rounded-lg mb-10 bg-gray-50/30">
+            <div className="w-full overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                        <tr className="text-sm text-gray-500">
+                            <th scope="col" className="px-4 py-3 text-left">
+                                ID
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-4 py-3 text-left">
                                 Name
                             </th>
-                            <th scope="col" className="px-6 py-3">
-                                Category
-                            </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-4 py-3 text-left">
                                 Price
                             </th>
-                            <th scope="col" className="px-6 py-3">
-                                Spice Level
+                            <th scope="col" className="px-4 py-3 text-left">
+                                Category
                             </th>
-                            <th scope="col" className="pl-6 py-3 pr-14 text-end">
+                            <th scope="col" className="px-4 py-3 text-left">
+                                Status
+                            </th>
+                            <th scope="col" className="px-4 py-3 text-right">
                                 Actions
                             </th>
                         </tr>
                     </thead>
 
-                    <tbody className="w-full opacity-80">
-                        {foodData?.content?.map(
-                            ({ foodId, name, category, price,spiceLevel }: any) => (
-                                <tr
-                                    key={foodId}
-                                    className={cn(
-                                        "text-sm border-b odd:bg-white even:bg-gray-50"
-                                    )}
-                                >
-                                    <td
-                                        scope="row"
-                                        className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+                    <tbody className="bg-white/80 divide-y divide-gray-100">
+                        {foodData?.content?.map(({ foodId, name, price, foodCategory, isAvailable }: any) => (
+                            <tr key={foodId} className="hover:bg-gray-50/50 transition-colors">
+                                <td className="px-4 py-3 text-sm text-gray-700">
+                                    {foodId}
+                                </td>
+                                <td className="px-4 py-3 text-sm text-gray-700">
+                                    {name}
+                                </td>
+                                <td className="px-4 py-3 text-sm text-gray-700">
+                                    ${price?.toFixed(2)}
+                                </td>
+                                <td className="px-4 py-3 text-sm text-gray-700">
+                                    {foodCategory?.name}
+                                </td>
+                                <td className="px-4 py-3">
+                                    <span
+                                        className={cn(
+                                            "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium",
+                                            isAvailable
+                                                ? "bg-green-100 text-green-800"
+                                                : "bg-amber-100 text-amber-800"
+                                        )}
                                     >
-                                        {foodId}
-                                    </td>
-                                    <td
-                                        scope="row"
-                                        className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        {name}
-                                    </td>
-                                    <td
-                                        scope="row"
-                                        className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        {category}
-                                    </td>
-                                    <td
-                                        scope="row"
-                                        className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        {price}
-                                    </td>
-                                    <td
-                                        scope="row"
-                                        className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                                    >
-                                        {spiceLevel}
-                                    </td>
-                                    <td
-                                        scope="row"
-                                        className="flex justify-end whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white gap-2"
-                                    >
-
-                                        <Link href={`/restaurantDashboard/menus/${id}/foods/${foodId}`}>
+                                        {isAvailable ? "Available" : "Not Available"}
+                                    </span>
+                                </td>
+                                <td className="px-4 py-3 text-right text-sm">
+                                    <div className="flex justify-end space-x-2">
+                                        <Link href={`/restaurant-dashboard/menus/${id}/foods/${foodId}`}>
                                             <Button
-                                                variant={"secondary"}
-                                                size={"icon"}
-                                                className="text-background"
+                                                variant="ghost"
+                                                size="sm"
+                                                className="text-gray-500 hover:text-gray-700"
                                             >
-                                                <Edit className="size-5" />
+                                                <Edit className="h-4 w-4" />
                                             </Button>
                                         </Link>
+
                                         <AlertDialog>
-                                            <AlertDialogTrigger>
-                                                <Button size={"icon"} className="bg-destructive text-white hover:bg-destructive/80">
-                                                    <Trash className="size-5" />
+                                            <AlertDialogTrigger asChild>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    className="text-gray-500 hover:text-amber-600"
+                                                >
+                                                    <Trash className="h-4 w-4" />
                                                 </Button>
                                             </AlertDialogTrigger>
-                                            <AlertDialogContent className="bg-white">
+                                            <AlertDialogContent>
                                                 <AlertDialogHeader>
                                                     <AlertDialogTitle>
-                                                        Are you absolutely sure?
+                                                        Are you sure you want to delete this food item?
                                                     </AlertDialogTitle>
                                                     <AlertDialogDescription>
-                                                        This action cannot be undone. This will permanently
-                                                        delete the Intructor.
+                                                        This action cannot be undone. This will permanently delete the food item.
                                                     </AlertDialogDescription>
                                                 </AlertDialogHeader>
                                                 <AlertDialogFooter>
-                                                    <AlertDialogCancel className="hover:text-background">
-                                                        Cancel
-                                                    </AlertDialogCancel>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
                                                     <AlertDialogAction
                                                         onClick={() => handleDelete(foodId)}
-                                                        className="bg-red-400 hover:bg-red-500 "
+                                                        className="bg-amber-600 hover:bg-amber-700"
                                                     >
                                                         {Deleting ? (
-                                                            <div className="flex items-center gap-x-2">
-                                                                <Loader2 className="size-5 animate-spin" />{" "}
-                                                                Deleting...
-                                                            </div>
-                                                        ) : (
-                                                            "Delete"
-                                                        )}
+                                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                        ) : null}
+                                                        Delete
                                                     </AlertDialogAction>
                                                 </AlertDialogFooter>
                                             </AlertDialogContent>
                                         </AlertDialog>
+                                    </div>
                                     </td>
                                 </tr>
                             )
@@ -191,14 +174,14 @@ const FoodsTable = () => {
             )}
 
             {!foodData && !isPending && (
-                <h3 className="w-full text-destructive font-bold text-center py-4">
+                <h3 className="w-full text-amber-600 font-bold text-center py-4">
                     Something went wrong.
                 </h3>
             )}
 
             {foodData?.content?.length === 0 && (
-                <h3 className="w-full text-destructive font-bold text-center py-4">
-                    Currently, no menu items found.
+                <h3 className="w-full text-amber-600 font-bold text-center py-4">
+                    Currently, no foods found.
                 </h3>
             )}
             <div className="mt-5 w-full flex items-center gap-x-2 justify-end p-4 place-self-end justify-self-end">
