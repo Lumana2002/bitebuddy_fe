@@ -54,109 +54,84 @@ const RestaurantsTable = () => {
   );
 
   return (
-    <div className="w-full relative overflow-hidden rounded-md shadow border border-input mb-10">
-      <div className="w-full table-wrapper overflow-x-auto">
-        <table className="min-w-[700px] relative w-full text-left">
-          <thead className="border-b bg-gray-50 uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Id
+    <div className="w-full relative overflow-hidden border border-gray-200 rounded-lg mb-10">
+      <div className="w-full overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr className="text-sm text-gray-500">
+              <th scope="col" className="px-4 py-3 text-left">
+                ID
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3 text-left">
                 Name
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3 text-left">
                 Email
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3 text-left">
                 Contact
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3 text-left">
                 Cuisine
               </th>
-              <th scope="col" className="px-6 py-3">
-                Address
-              </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3 text-left">
                 Status
               </th>
-              <th scope="col" className="pl-6 py-3 pr-14 text-end">
+              <th scope="col" className="px-4 py-3 text-right">
                 Actions
               </th>
             </tr>
           </thead>
 
-          <tbody className="w-full opacity-80">
+          <tbody className="bg-white divide-y divide-gray-100">
             {restaurantData?.content?.map(
               ({ restaurantId, name, email, contact, cuisine, address, status }: any) => (
-                <tr
-                  key={restaurantId}
-                  className={cn(
-                    "text-sm border-b odd:bg-white even:bg-gray-50"
-                  )}
-                >
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
+                <tr key={restaurantId} className="hover:bg-gray-50">
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {restaurantId}
                   </td>
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {name}
                   </td>
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {email}
                   </td>
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {contact}
                   </td>
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {cuisine}
                   </td>
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
-                    {address}
+                  <td className="px-4 py-3">
+                    <span className={`px-2 py-1 text-xs rounded-full ${
+                      status === 'ACTIVE' ? 'bg-green-100 text-green-800' : 
+                      status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' : 
+                      'bg-gray-100 text-gray-800'
+                    }`}>
+                      {status}
+                    </span>
                   </td>
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
-                    {status}
-                  </td>
-                  <td
-                    scope="row"
-                    className="flex justify-end whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white gap-2"
-                  >
-
-                    <Link href={`/dashboard/restaurants/edit_restaurant/${restaurantId}`}>
-                      <Button
-                        variant={"secondary"}
-                        size={"icon"}
-                        className="text-background"
-                      >
-                        <Edit className="size-5" />
-                      </Button>
-                    </Link>
-                    <AlertDialog>
-                      <AlertDialogTrigger>
-                        <Button size={"icon"} className="bg-destructive text-white hover:bg-destructive/80">
-                          <Trash className="size-5" />
+                  <td className="px-4 py-3 text-right text-sm">
+                    <div className="flex justify-end space-x-2">
+                      <Link href={`/dashboard/restaurants/edit_restaurant/${restaurantId}`}>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-gray-500 hover:text-gray-700"
+                        >
+                          <Edit className="h-4 w-4" />
                         </Button>
-                      </AlertDialogTrigger>
+                      </Link>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-gray-500 hover:text-red-500"
+                          >
+                            <Trash className="h-4 w-4" />
+                          </Button>
+                        </AlertDialogTrigger>
                       <AlertDialogContent className="bg-white">
                         <AlertDialogHeader>
                           <AlertDialogTitle>
@@ -187,6 +162,7 @@ const RestaurantsTable = () => {
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
+                    </div>
                   </td>
                 </tr>
               )

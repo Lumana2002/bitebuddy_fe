@@ -12,8 +12,8 @@ export function PatchRequest(url: string, data: any, config: any) {
   return axios.patch(url, data, config);
 }
 
-export function DeleteRequest(url: string, data: any) {
-  return axios.delete(url, data);
+export function DeleteRequest(url: string, config?: any) {
+  return axios.delete(url, config);
 }
 
 export function GetRequest(url: string, data: any, config: any) {

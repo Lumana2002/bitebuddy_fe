@@ -62,7 +62,7 @@ type Order = {
 type OrderDetails = {
   id: number;
   foodId: string;
-  name: string;
+  foodName: string;
   orderId: number;
   quantity: number;
   price: number;

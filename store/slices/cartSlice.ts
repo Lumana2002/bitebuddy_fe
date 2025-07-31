@@ -15,21 +15,25 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action: PayloadAction<Food>) => {
+      console.log('Adding item to cart:', action.payload);
       const itemExists = state.items.find(
         (item) => item.foodId === String(action.payload.foodId)
       );
 
       if (itemExists) {
         itemExists.quantity += 1;
+        console.log('Item exists, updated quantity:', itemExists);
       } else {
-        state.items.push({
+        const newItem = {
           ...action.payload,
           foodId: String(action.payload.foodId),
           menuId: String(action.payload.menuId),
           quantity: 1,
           price: Number(action.payload.price),
           spiceLevel: Number(action.payload.spiceLevel)
-        });
+        };
+        console.log('Adding new item to cart:', newItem);
+        state.items.push(newItem);
       }
     },
     removeItem: (state, action: PayloadAction<string>) => {

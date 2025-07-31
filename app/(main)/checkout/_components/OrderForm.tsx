@@ -33,6 +33,14 @@ const OrderForm = () => {
 
     const cart = useSelector((state: RootState) => state.cart.items);
     const menuId = cart.length > 0 ? cart[0].menuId : -1;
+    
+    // Debug: Log cart items to see their structure
+    useEffect(() => {
+        if (cart.length > 0) {
+            console.log('Cart items:', cart);
+            console.log('First cart item keys:', Object.keys(cart[0]));
+        }
+    }, [cart]);
     const { data: menu, isPending: isMenuLoading } = useGetMenuDetail(Number(menuId), session?.data?.user?.access_token);
     
     // Log menu loading state
@@ -144,6 +152,14 @@ const OrderForm = () => {
 
     const onSubmit = async (formData: TOrderForm) => {
         console.log('Starting order submission...');
+        console.log('Current cart items:', cart);
+        console.log('Cart item structure:', cart.map(item => ({
+            foodId: item.foodId,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            keys: Object.keys(item)
+        })));
         const toastId = toast.loading('Processing your order...');
         
         try {
@@ -166,11 +182,26 @@ const OrderForm = () => {
             // 3. Prepare order data
             const deliveryDateTime = new Date();
             
+            // Log detailed cart item information
+            console.log('Cart items before mapping:', JSON.stringify(cart, null, 2));
+            
+            const orderDetails = cart.map(item => {
+                const orderItem = {
+                    foodId: String(item.foodId),
+                    name: item.name || 'Unnamed Item',
+                    quantity: item.quantity,
+                    price: Number(item.price),
+                    totalPrice: Number(item.price * item.quantity)
+                };
+                console.log('Processed order item:', JSON.stringify(orderItem, null, 2));
+                return orderItem;
+            });
+            
             const additionalFields = {
                 restaurantId: menu?.restaurant?.restaurantId || 0,
                 paymentStatus: 'pending',
                 orderStatus: 'unfulfilled',
-                orderDetails: [...cart],
+                orderDetails: orderDetails,
                 totalPrice: total,
                 orderDate: new Date().toISOString(),
                 averagePrice: averagePrice,

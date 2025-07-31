@@ -57,128 +57,103 @@ const UsersTable = () => {
   );
 
   return (
-    <div className="w-full relative overflow-hidden rounded-md shadow border border-input mb-10">
-      <div className="w-full table-wrapper overflow-x-auto">
-        <table className="min-w-[700px] relative w-full text-left">
-          <thead className="border-b bg-gray-50 uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Id
+    <div className="w-full relative overflow-hidden border border-gray-200 rounded-lg mb-10 bg-gray-50/30">
+      <div className="w-full overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-100">
+          <thead className="bg-gray-50">
+            <tr className="text-sm text-gray-500">
+              <th scope="col" className="px-4 py-3 text-left">
+                ID
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3 text-left">
                 Name
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3 text-left">
                 Email
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3 text-left">
                 Contact
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3 text-left">
                 Role
               </th>
-
-              <th scope="col" className="pl-6 py-3 pr-8 text-end">
+              <th scope="col" className="px-4 py-3 text-right">
                 Actions
               </th>
             </tr>
           </thead>
 
-          <tbody className="w-full opacity-80">
-            {userData?.content?.map(
-              ({
-                id,
-                firstName,
-                lastName,
-                email,
-                contact,
-                role,
-              }: any) => (
-                <tr
-                  key={id}
-                  className={cn(
-                    "text-sm border-b odd:bg-white even:bg-gray-50"
-                  )}
-                >
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
+          <tbody className="bg-white/80 divide-y divide-gray-100">
+            {userData?.content?.map(({ id, firstName, lastName, email, contact, role }: any) => (
+                <tr key={id} className="hover:bg-gray-50/50 transition-colors">
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {id}
                   </td>
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {firstName} {lastName}
                   </td>
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
+                  <td className="px-4 py-3 text-sm text-gray-700">
                     {email}
                   </td>
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
-                    {contact ? contact : '-'}
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    {contact || '-'}
                   </td>
-                  <td
-                    scope="row"
-                    className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                  >
-                    {role}
+                  <td className="px-4 py-3">
+                    <span className={`px-2 py-1 text-xs rounded-full ${
+                      role === 'ADMIN' ? 'bg-blue-100 text-blue-800' : 
+                      role === 'USER' ? 'bg-green-100 text-green-800' : 
+                      'bg-gray-100 text-gray-800'
+                    }`}>
+                      {role}
+                    </span>
                   </td>
-                  <td
-                    scope="row"
-                    className="flex justify-end whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white gap-2"
-                  >
-                    <Link href={`/dashboard/users/edit_user/${id}`}>
-                      <Button
-                        variant={"secondary"}
-                        size={"icon"}
-                        className="text-background"
-                      >
-                        <Edit className="size-5" />
-                      </Button>
-                    </Link>
-                    <AlertDialog>
-                      <AlertDialogTrigger>
-                        <Button size={"icon"} className="bg-destructive text-white hover:bg-destructive/80">
-                          <Trash className="size-5" />
+                  <td className="px-4 py-3 text-right text-sm">
+                    <div className="flex justify-end space-x-2">
+                      <Link href={`/dashboard/users/edit_user/${id}`}>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-gray-500 hover:text-gray-700"
+                        >
+                          <Edit className="h-4 w-4" />
                         </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent className="bg-white">
+                      </Link>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-gray-500 hover:text-red-500"
+                          >
+                            <Trash className="h-4 w-4" />
+                          </Button>
+                        </AlertDialogTrigger>
+                      <AlertDialogContent className="sm:max-w-[425px]">
                         <AlertDialogHeader>
-                          <AlertDialogTitle>
-                            Are you absolutely sure?
-                          </AlertDialogTitle>
+                          <AlertDialogTitle>Delete user?</AlertDialogTitle>
                           <AlertDialogDescription>
-                            This action cannot be undone. This will permanently
-                            delete the Intructor.
+                            This will permanently delete {firstName} {lastName}'s account and all associated data. This action cannot be undone.
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel className="hover:text-background">
-                            Cancel
-                          </AlertDialogCancel>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
                           <AlertDialogAction
                             onClick={() => handleDelete(id)}
-                            className="bg-red-400 hover:bg-red-500 "
+                            className="bg-red-600 hover:bg-red-700"
                           >
                             {Deleting ? (
                               <div className="flex items-center gap-x-2">
-                                <Loader2 className="size-5 animate-spin" />{" "}
+                                <Loader2 className="h-4 w-4 animate-spin" />
                                 Deleting...
                               </div>
                             ) : (
-                              "Delete"
+                              'Delete'
                             )}
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
+                    </div>
                   </td>
                 </tr>
               )

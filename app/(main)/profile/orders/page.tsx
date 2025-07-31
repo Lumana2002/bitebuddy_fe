@@ -24,6 +24,12 @@ const OrdersPage = () => {
     return <Loading />
   }
 
+  // Debug: Log order details to console
+  console.log('Order details:', orders?.content?.map(order => ({
+    id: order.id,
+    orderDetails: order.orderDetails
+  })));
+
   return (
     <section className="mt-20 mx-[20px] md:mx-[40px] 2xl:mx-[80px] max-md:flex-wrap flex flex-col gap-y-10 justify-center items-center mb-20">
       {/* Header Section */}
@@ -107,12 +113,21 @@ const OrdersPage = () => {
                         key={detail.id}
                         className="flex justify-between items-center p-3 bg-amber-50 rounded-lg border border-amber-100"
                       >
-                        <div className="flex items-center gap-3">
-                          <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-                          <span className="font-medium text-gray-800">{detail.name}</span>
+                        <div className="flex items-center gap-3 flex-1">
+                          <div className="w-2 h-2 bg-amber-500 rounded-full flex-shrink-0"></div>
+                          <span className="font-medium text-gray-800">
+                            {detail.foodName || 'Unnamed Item'}
+                          </span>
                         </div>
-                        <div className="flex items-center gap-4">
-                          <span className="text-sm text-gray-600">Qty: {detail.quantity}</span>
+                        <div className="flex items-center gap-4 ml-4">
+                          {detail.quantity && detail.quantity > 1 && (
+                            <span className="text-sm text-gray-600 whitespace-nowrap">
+                              {detail.quantity} × Rs. {detail.price?.toFixed(2) || '0.00'}
+                            </span>
+                          )}
+                          <span className="font-medium text-amber-700 whitespace-nowrap">
+                            Rs. {(detail.quantity * (detail.price || 0)).toFixed(2)}
+                          </span>
                         </div>
                       </li>
                     ))}

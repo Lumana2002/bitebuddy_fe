@@ -73,15 +73,17 @@ const UserForm = ({ id, token }: Props) => {
   }
 
   return (
-    <div className="w-full max-w-6xl">
-
+    <div className="w-full max-w-3xl">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white rounded-2xl shadow-lg border border-amber-100 overflow-hidden"
+        className="bg-white rounded-lg border border-gray-200 overflow-hidden"
       >
-        <div className="bg-gradient-to-r from-amber-500 to-orange-500 h-2"></div>
+        <div className="border-b border-gray-100 px-6 py-4">
+          <h3 className="text-lg font-medium text-gray-900">Profile Information</h3>
+          <p className="mt-1 text-sm text-gray-500">Update your account's profile information.</p>
+        </div>
 
-        <div className="flex flex-col gap-y-8 py-10 px-5 vsm:px-14">
+        <div className="space-y-6 p-6">
           <InputBox<TUser>
             name="firstName"
             id="firstName"
@@ -122,36 +124,26 @@ const UserForm = ({ id, token }: Props) => {
             label="Contact"
           />
 
-          <div className="flex flex-col vvsm:flex-row gap-10">
-            <Link
-              href={"/dashboard/profile/change-password"}
-              className="text-primary transition underline underline-offset-2 font-semibold"
-            >
-              <Button
-                type="button"
-                className="px-5 py-2.5 my-auto text-[16px] w-[200px] h-[40px] font-medium rounded-md border-r-0 bg-amber-100 text-amber-700 hover:bg-amber-200 border border-amber-300"
-              >
-                <Key className="w-4 h-4 mr-2" />
-                Change Password
-              </Button>
-            </Link>
-
+          <div className="flex items-center justify-between pt-2">
             <Button
               type="submit"
-              className=" px-5 py-2.5 my-auto text-[16px] w-[200px] h-[40px] font-medium rounded-md border-r-0 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white"
+              variant="outline"
+              className="border-gray-300 hover:bg-gray-50"
+              disabled={Updating}
             >
               {Updating ? (
-                <div className="flex items-center gap-2">
-                  <Loader2 className="size-5 animate-spin" />
-                  <p>Updating..</p>
-                </div>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <Save className="w-4 h-4" />
-                  <span>Update User Details</span>
-                </div>
-              )}
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : null}
+              Save Changes
             </Button>
+
+            <Link
+              href="/dashboard/profile/change-password"
+              className="text-sm text-gray-600 hover:text-gray-900 hover:underline flex items-center gap-1.5"
+            >
+              Change Password
+              <Key className="h-3.5 w-3.5 text-gray-400" />
+            </Link>
           </div>
         </div>
       </form>
