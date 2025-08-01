@@ -5,7 +5,6 @@ import {
   getRestaurantRecommendation,
 } from "@/apicalls/restaurant";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { get } from "http";
 
 export const useGetAllRestaurants = (page: number | 1) => {
   const { data, isPending } = useQuery<PaginatedRestaurantsData>({

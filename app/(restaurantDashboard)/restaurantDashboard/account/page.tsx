@@ -35,7 +35,7 @@ const Page = () => {
           />
           
           <div className="mt-8 pt-6 border-t border-gray-100">
-            <Link href="/restaurant-dashboard/account/change-password">
+            <Link href="/restaurantDashboard/account/change-password">
               <Button variant="outline" className="flex items-center gap-2">
                 Change Password
                 <ChevronRight className="h-4 w-4" />

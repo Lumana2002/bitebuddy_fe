@@ -115,7 +115,7 @@ const FoodsTable = () => {
                                 </td>
                                 <td className="px-4 py-3 text-right text-sm">
                                     <div className="flex justify-end space-x-2">
-                                        <Link href={`/restaurant-dashboard/menus/${id}/foods/${foodId}`}>
+                                        <Link href={`/restaurantDashboard/menus/${id}/foods/${foodId}`}>
                                             <Button
                                                 variant="ghost"
                                                 size="sm"

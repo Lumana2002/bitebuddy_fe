@@ -23,7 +23,7 @@ export const getAllUsers = async (pageParam = 1, token: string | undefined) => {
         page: pageParam,
       },
       {
-        headers: { authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
 
@@ -131,3 +131,4 @@ export const resetPassword = async (data: {
     throw new Error(error?.message);
   }
 };
+ 

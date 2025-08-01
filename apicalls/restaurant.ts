@@ -96,7 +96,7 @@ export const deleteRestaurant = async (data: {
 
 export const getRestUser = async (data: {
   id: number | undefined;
-  token: string | undefined;
+  token: string | undefined;  
 }) => {
   try {
     const response = await GetRequest(

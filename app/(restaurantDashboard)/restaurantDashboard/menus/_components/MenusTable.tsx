@@ -14,7 +14,7 @@ const MenusTable = () => {
   const session = useSession();
   const [page, setPage] = useState<number>(1);
 
-  const { data: restaurantData, isPending: Loading } = useGetRestaurantUser(session?.data?.user.id, session?.data?.user?.access_token);
+  const { data: restaurantData, isPending: Loading } = useGetRestaurantUser(session?.data?.user?.id, session?.data?.user?.access_token);
   console.log(restaurantData)
   const { data: menuData, isPending } = useGetRestaurantMenus(restaurantData?.restaurantId, page);
 
@@ -48,7 +48,7 @@ const MenusTable = () => {
                 </td>
                 <td className="px-4 py-3 text-right text-sm">
                   <div className="flex justify-end space-x-2">
-                    <Link href={`/restaurant-dashboard/menus/${menuId}`}>
+                    <Link href={`/restaurantDashboard/menus/${menuId}`}>
                       <Button
                         variant="ghost"
                         size="sm"
