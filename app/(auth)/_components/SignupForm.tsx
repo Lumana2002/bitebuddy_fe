@@ -1,6 +1,6 @@
 "use client"
 
-import { AtSign, CircleUserRound, KeyRound, Loader2, Sparkles, UserPlus } from "lucide-react"
+import { AtSign, CircleUserRound, KeyRound, Loader2, UserPlus, Map } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
@@ -99,7 +99,7 @@ export default function SignupForm() {
               {/* Last Name Field */}
               <div className="space-y-2">
                 <Label htmlFor="lastName" className="text-amber-800 font-semibold flex items-center gap-2">
-                  <CircleUserRound className="w-4 h-4" />
+                  <AtSign className="w-4 h-4" />
                   Last Name
                 </Label>
                 <div className="relative">
@@ -151,6 +151,32 @@ export default function SignupForm() {
                 <div className="flex items-center gap-2 text-red-600 text-sm font-medium">
                   <div className="w-1 h-1 bg-red-600 rounded-full"></div>
                   {errors?.email?.message}
+                </div>
+              )}
+            </div>
+          <div className="space-y-2">
+              <Label htmlFor="address" className="text-amber-800 font-semibold flex items-center gap-2">
+                <Map className="w-4 h-4" />
+                 Address
+              </Label>
+              <div className="relative">
+                <Input
+                  {...register("address")}
+                  className={cn(
+                    "pl-12 pr-4 py-4 text-lg bg-amber-50/50 border-2 border-amber-200 rounded-2xl focus:border-amber-400 focus:ring-amber-400 transition-all duration-200 shadow-sm",
+                    {
+                      "border-red-400 focus:border-red-400 focus:ring-red-400": errors?.address?.message,
+                    },
+                  )}
+                  id="address"
+                  type="text"
+                  name="address"
+                />
+              </div>
+              {errors?.address?.message && (
+                <div className="flex items-center gap-2 text-red-600 text-sm font-medium">
+                  <div className="w-1 h-1 bg-red-600 rounded-full"></div>
+                  {errors?.address?.message}
                 </div>
               )}
             </div>

@@ -12,6 +12,9 @@ export const registerSchema = z
       .string({ required_error: "Email is required" })
       .min(1, { message: "Email is required" })
       .email(),
+    address: z
+      .string({ required_error: "Address is required" })
+      .min(1, { message: "Address is required" }),
     password: z
       .string({ required_error: "Password is required" })
       .min(1, { message: "Password is required" })

@@ -15,6 +15,7 @@ export const UserSchema = z.object({
     .min(1, { message: "Role is required" }).optional(),
   contact: z.string().optional(),
   image: z.string().optional(),
+  address: z.string().optional(),
   createdAt: z.string().optional(),
 });
 

@@ -26,6 +26,7 @@ const Cart = () => {
     const handleAddItem = (item: Food) => {
         dispatch(addItem({
             foodId: String(item.foodId),
+            // @ts-ignore
             menuId: Number(item.menuId),
             name: item.name,
             category: item.category,

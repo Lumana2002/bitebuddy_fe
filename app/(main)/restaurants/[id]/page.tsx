@@ -75,24 +75,24 @@ const Page = () => {
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-              <button className="group relative px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-lg rounded-xl shadow-2xl transform transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden">
-  <div className="relative z-10 flex items-center justify-center gap-3">
-    <Truck className="w-6 h-6" />
-    <span>Delivery</span>
-  </div>
-  <div className="absolute inset-0 bg-gradient-to-r from-amber-600 to-amber-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
-</button>
+                <button className="group relative px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-lg rounded-xl shadow-2xl transform transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden">
+                  <div className="relative z-10 flex items-center justify-center gap-3">
+                    <Truck className="w-6 h-6" />
+                    <span>Delivery</span>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-600 to-amber-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+                </button>
 
-<button className="group relative px-8 py-4 bg-gradient-to-r from-gray-700 to-gray-800 text-white font-bold text-lg rounded-xl shadow-2xl transform transition-all duration-300 hover:scale-105 active:scale-95 border-2 border-white/20 overflow-hidden">
-  <div className="relative z-10 flex items-center justify-center gap-3">
-    <ShoppingBag className="w-6 h-6" />
-    <span>Pickup</span>
-  </div>
-  <div className="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
-</button>
+                <button className="group relative px-8 py-4 bg-gradient-to-r from-gray-700 to-gray-800 text-white font-bold text-lg rounded-xl shadow-2xl transform transition-all duration-300 hover:scale-105 active:scale-95 border-2 border-white/20 overflow-hidden">
+                  <div className="relative z-10 flex items-center justify-center gap-3">
+                    <ShoppingBag className="w-6 h-6" />
+                    <span>Pickup</span>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+                </button>
               </div>
 
-         
+
             </div>
           </div>
         </div>

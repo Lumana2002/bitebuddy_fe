@@ -80,6 +80,7 @@ type UserDetails = {
   contact: null | string;
   image: null | string;
   role: string;
+  address: string;
   slug: string;
   created_at: string;
   updated_at: string;

@@ -33,6 +33,7 @@ const UserForm = ({ id, token }: Props) => {
       email: data?.email,
       contact: data?.contact || "",
       role: data?.role,
+      address: data?.address,
     },
   })
 
@@ -43,6 +44,7 @@ const UserForm = ({ id, token }: Props) => {
       setValue("email", data?.email)
       setValue("contact", data?.contact || "")
       setValue("role", data?.role)
+      setValue("address", data?.address)
     }
   }, [data, setValue])
 
@@ -133,6 +135,16 @@ const UserForm = ({ id, token }: Props) => {
             error={(errors && errors?.contact?.message?.toString()) || ""}
             desc="enter the contact."
             label="Contact"
+          />
+
+          <InputBox<TUser>
+            name="address"
+            id="address"
+            placeholder="Enter Address..."
+            register={register}
+            error={(errors && errors?.address?.message?.toString()) || ""}
+            desc="enter the address."
+            label="Address"
           />
 
           <div className="flex flex-col vvsm:flex-row gap-10">

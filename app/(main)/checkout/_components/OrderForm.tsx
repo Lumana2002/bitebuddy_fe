@@ -33,6 +33,57 @@ const OrderForm = () => {
 
     const cart = useSelector((state: RootState) => state.cart.items);
     const menuId = cart.length > 0 ? cart[0].menuId : -1;
+    const [coords, setCoords] = useState<{ lat: number; lon: number } | null>(null);
+
+    // Add state for weather
+    const [weather, setWeather] = useState<string>("");
+  
+    useEffect(() => {
+      const saved = localStorage.getItem("coords");
+      if (saved) {
+        try {
+          setCoords(JSON.parse(saved));
+          return;
+        } catch (_) {}
+      }
+  
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
+          const loc = { lat: latitude, lon: longitude };
+          localStorage.setItem("coords", JSON.stringify(loc));
+          setCoords(loc);
+        },
+        (err) => {
+          console.error("Location permission denied:", err.message);
+        }
+      );
+    }, []);
+  
+    // Fetch weather whenever coords change
+    useEffect(() => {
+      async function fetchWeather(lat: number, lon: number) {
+        try {
+          const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
+          if (!apiKey) throw new Error("OpenWeather API key not found");
+  
+          const res = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+          );
+          if (!res.ok) throw new Error("Failed to fetch weather");
+  
+          const data = await res.json();
+          const weatherMain = data.weather?.[0]?.main || "";
+          setWeather(weatherMain.toLowerCase());
+        } catch (error) {
+          console.error("Error fetching weather:", error);
+        }
+      }
+  
+      if (coords) {
+        fetchWeather(coords.lat, coords.lon);
+      }
+    }, [coords]);
     
     // Debug: Log cart items to see their structure
     useEffect(() => {
@@ -125,6 +176,7 @@ const OrderForm = () => {
             deliveryAddress: "",
             deliveryDate: "asap",
             deliveryTime: "",
+            weather: "", 
         },
     });
 
@@ -206,6 +258,7 @@ const OrderForm = () => {
                 orderDate: new Date().toISOString(),
                 averagePrice: averagePrice,
                 deliveryDate: deliveryDateTime.toISOString(),
+                weather: weather,
             };
 
             const { deliveryTime, ...remainingData } = formData;

@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils"
 import { authenticate } from "@/lib/actions"
 
 import { Button } from "@/components/ui/button"
-import { AtSign, CircleAlert, KeyRound, Loader2, Sparkles, Lock } from "lucide-react"
+import { AtSign, KeyRound, Loader2, Lock } from "lucide-react"
 import { Input } from "@/components/ui/input"
 
 const LoginForm = () => {
