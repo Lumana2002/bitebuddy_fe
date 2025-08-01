@@ -54,7 +54,6 @@ const CollaborativeFilter = () => {
 
   return (
     <div>
-      <h2>Collaborative Filter Recommendations</h2>
       {isLoading ? <Loading/> : <WeatherRecommendation recommendations={transformedRecommendations}/>}
     </div>
   );
