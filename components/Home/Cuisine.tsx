@@ -35,7 +35,7 @@ const Cuisine = () => {
                 key={index}
                 className="pl-2 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6"
               >
-                <div className="group cursor-pointer">
+                <div className="group cursor-default">
                   <div className="bg-white rounded-lg p-4 hover:bg-gray-50 transition-colors duration-200 border border-gray-100">
                     <div className="relative aspect-square mb-3">
                       <Image

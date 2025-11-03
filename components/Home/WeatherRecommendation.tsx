@@ -15,6 +15,7 @@ interface Food {
   price: number
   spiceLevel: number
   menuId: number
+  image: string
 }
 
 interface Restaurant {

@@ -101,18 +101,16 @@ const Navbar = () => {
                     {/* User Profile */}
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <button className="flex items-center space-x-3 bg-white/80 backdrop-blur-sm rounded-full pl-4 pr-6 py-3 shadow-lg border border-amber-100 hover:bg-white transition-all duration-200 group">
+                        <button className="flex items-center space-x-3 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg border border-amber-100 hover:bg-white transition-all duration-200 group">
                           <div className="relative">
                             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white text-sm font-bold shadow-md">
                               {session?.user?.firstName?.charAt(0)}
                             </div>
-                            <div className="absolute -bottom-1 -right-1 h-4 w-4 bg-green-400 rounded-full border-2 border-white"></div>
                           </div>
                           <div className="hidden lg:block text-left">
                             <p className="text-sm font-medium text-gray-900 group-hover:text-amber-900 transition-colors">
                               {session?.user?.firstName}
                             </p>
-                            <p className="text-xs text-gray-500">Online</p>
                           </div>
                         </button>
                       </DropdownMenuTrigger>
