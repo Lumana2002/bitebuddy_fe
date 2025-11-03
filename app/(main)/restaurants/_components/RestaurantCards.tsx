@@ -10,8 +10,6 @@ import { ChefHat, MapPin, Eye } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
-// Remove the local interface and use the one from your API types
-// Or update it to match your API response
 interface Restaurant {
   restaurantId: number // Changed from string to number
   name: string
@@ -109,7 +107,9 @@ const RestaurantCards = ({ searchTerm }: any) => {
 
                 <CardFooter className="p-6 pt-0">
                   <Link href={`/restaurants/${restaurant.restaurantId}`} className="w-full">
-                    <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group">
+                    <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600
+                           hover:to-orange-600 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl 
+                           transition-all duration-300 transform hover:-translate-y-1 group">
                       <Eye className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-200" />
                       View Restaurant
                     </Button>

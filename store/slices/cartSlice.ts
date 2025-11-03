@@ -21,8 +21,14 @@ const cartSlice = createSlice({
       );
 
       if (itemExists) {
-        itemExists.quantity += 1;
-        console.log('Item exists, updated quantity:', itemExists);
+        if(itemExists.quantity<5) {
+
+          itemExists.quantity += 1;
+          console.log('Item exists, updated quantity:', itemExists);
+        } else{
+          console.log('Item quantity limit reached');
+        }
+        
       } else {
         const newItem = {
           ...action.payload,

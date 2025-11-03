@@ -20,7 +20,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ selectedCategory, foodItems }
             <Utensils className="w-6 h-6 text-amber-600" />
           </div>
           <div>
-            <h2 className="text-3xl font-bold text-gray-800">{selectedCategory}</h2>
+            <h2 className="text-2xl font-bold text-gray-800">{selectedCategory}</h2>
             <p className="text-gray-600 mt-1">
               {foodItems.length} {foodItems.length === 1 ? "item" : "items"} available
             </p>

@@ -40,10 +40,10 @@ const Page = () => {
   return (
     <main className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <div className="relative h-[70vh] md:h-[80vh] overflow-hidden">
+      <div className="relative h-[45vh] md:h-[55vh] overflow-hidden">
         <Image
-          src={restaurantData?.image || "/path-to-hero-image.jpg"}
-          alt={restaurantData?.name || "Restaurant Name"}
+          src={restaurantData?.image || "/assets/hero.jpg"}
+          alt={restaurantData?.name || "Restaurant"}
           fill
           className="object-cover"
           priority
@@ -59,7 +59,7 @@ const Page = () => {
             <div className="max-w-4xl">
 
               {/* Restaurant Name */}
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-tight">{restaurantData?.name}</h1>
+              <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">{restaurantData?.name}</h1>
 
               {/* Restaurant Info */}
               <div className="flex flex-wrap items-center gap-6 mb-8 text-white/90">
@@ -72,26 +72,6 @@ const Page = () => {
                   <span className="text-lg">{restaurantData?.address}</span>
                 </div>
               </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button className="group relative px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-lg rounded-xl shadow-2xl transform transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden">
-                  <div className="relative z-10 flex items-center justify-center gap-3">
-                    <Truck className="w-6 h-6" />
-                    <span>Delivery</span>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-amber-600 to-amber-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
-                </button>
-
-                <button className="group relative px-8 py-4 bg-gradient-to-r from-gray-700 to-gray-800 text-white font-bold text-lg rounded-xl shadow-2xl transform transition-all duration-300 hover:scale-105 active:scale-95 border-2 border-white/20 overflow-hidden">
-                  <div className="relative z-10 flex items-center justify-center gap-3">
-                    <ShoppingBag className="w-6 h-6" />
-                    <span>Pickup</span>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-700 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
-                </button>
-              </div>
-
 
             </div>
           </div>

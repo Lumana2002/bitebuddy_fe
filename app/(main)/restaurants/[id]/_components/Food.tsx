@@ -42,7 +42,7 @@ const Food = ({ food, index }: { food: Food; index: number }) => {
                         ))}
                     </span></p>
             </div>
-            <Button className="ml-auto h-8  text-white px-3 py-1 rounded-lg" onClick={() => handleAddItem(food)}>+</Button>
+            <Button className="ml-auto h-8 bg-amber-500 hover:bg-amber-600 text-white px-3 py-1 rounded-lg" onClick={() => handleAddItem(food)}>+</Button>
         </div>
     )
 }
