@@ -66,14 +66,14 @@ const Cart = () => {
             <SheetContent className="w-full h-full sm:max-w-sm sm:h-auto bg-gradient-to-b from-amber-50 to-white">
                 <div className="p-4 h-full flex flex-col">
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-amber-500 to-amber-600 rounded-xl p-4 mb-6 shadow-lg">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                            <ShoppingBasket className="size-6 text-white" />
-                            <h2 className="text-xl font-bold text-white">Your Cart</h2>
+                    <div className="bg-amber-500  rounded-lg p-3 mb-4 shadow-md">
+                        <div className="flex items-center justify-center gap-2 mb-1">
+                            <ShoppingBasket className="size-5 text-white" />
+                            <h2 className="text-lg font-bold text-white">Your Cart</h2>
                         </div>
                         {restaurantName && (
                             <div className="flex justify-center">
-                                <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium">
+                                <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium">
                                     {restaurantName}
                                 </span>
                             </div>
@@ -81,44 +81,22 @@ const Cart = () => {
                     </div>
 
                     {cart.length > 0 ? (
-                        <div className="flex flex-col flex-grow">
-                            {/* Clear Cart Button */}
-                            <div className="flex justify-end mb-4">
-                                <button
-                                    onClick={handleClearCart}
-                                    className="flex items-center gap-2 px-3 py-2 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-colors duration-200 text-sm font-medium"
-                                >
-                                    <Trash2 className="size-4" />
-                                    Clear Cart
-                                </button>
-                            </div>
-
+                        <div className="flex flex-col flex-grow min-h-0">
                             {/* Cart Items */}
-                            <div className="flex-grow space-y-4 mb-6 overflow-y-auto">
+                            <div className="flex-1 space-y-3 mb-6 overflow-y-auto ">
                                 {cart.map((food: any) => (
-                                    <div key={food?.foodId} className="bg-white rounded-xl p-4 shadow-md border border-amber-100">
-                                        <div className="flex gap-4">
-                                            <div className="flex-shrink-0">
-                                                <div className="w-16 h-16 rounded-lg overflow-hidden border-2 border-amber-200">
-                                                    <Image 
-                                                        src={imgPlaceholder} 
-                                                        width={64} 
-                                                        height={64} 
-                                                        alt="food" 
-                                                        className="w-full h-full object-cover"
-                                                    />
-                                                </div>
-                                            </div>
+                                    <div key={food?.foodId} className="bg-white rounded-lg p-3 border border-gray-200">
+                                        <div className="flex gap-2 items-center">
                                             
-                                            <div className="flex-grow">
+                                            <div className="flex-grow mn-w-0">
                                                 <h3 className="font-semibold text-gray-800 mb-1">{food?.name}</h3>
                                                 <p className="text-amber-600 font-medium">Rs. {food?.price}</p>
                                             </div>
                                             
-                                            <div className="flex flex-col items-center justify-center">
+                                            <div className="flex items-center gap-2">
                                                 <button
                                                     onClick={() => handleAddItem(food)}
-                                                    className="w-8 h-8 bg-amber-500 hover:bg-amber-600 text-white rounded-full flex items-center justify-center transition-colors duration-200 mb-1"
+                                                    className="w-8 h-8 bg-gray-100 text-gray-700 rounded-full flex items-center justify-center"
                                                 >
                                                     <ChevronUp className="size-4" />
                                                 </button>
@@ -127,14 +105,14 @@ const Cart = () => {
                                                 </span>
                                                 <button
                                                     onClick={() => handleRemoveItem(food.foodId)}
-                                                    className="w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition-colors duration-200 mt-1"
+                                                    className="w-8 h-8 bg-gray-100 text-gray-700 rounded-full flex items-center justify-center"
                                                 >
                                                     <ChevronDown className="size-4" />
                                                 </button>
                                             </div>
                                             
-                                            <div className="flex items-center">
-                                                <p className="font-bold text-gray-800">
+                                            <div className="w-24 text-center">
+                                                <p className="font-semibold text-gray-900 text-sm">
                                                     Rs. {(parseFloat(food.price) * (food?.quantity || 1)).toFixed(2)}
                                                 </p>
                                             </div>
@@ -144,29 +122,41 @@ const Cart = () => {
                             </div>
 
                             {/* Order Summary */}
-                            <div className="bg-white rounded-xl p-4 shadow-md border border-amber-100">
-                                <div className="space-y-3">
-                                    <div className="flex justify-between text-gray-600">
+                            <div className="bg-white rounded-lg p-3 shadow-md border border-amber-100">
+                                <div className="space-y-2">
+                                    <div className="flex justify-between text-gray-600 text-sm">
                                         <span>Subtotal:</span>
                                         <span>Rs. {subtotal.toFixed(2)}</span>
                                     </div>
-                                    <div className="flex justify-between text-gray-600">
+                                    <div className="flex justify-between text-gray-600 text-sm">
                                         <span>Delivery Charge:</span>
                                         <span>Rs. 120.00</span>
                                     </div>
-                                    <div className="border-t border-amber-200 pt-3">
-                                        <div className="flex justify-between text-lg font-bold text-gray-800">
+                                    <div className="border-t border-amber-200 pt-2">
+                                        <div className="flex justify-between font-bold text-gray-800">
                                             <span>Total:</span>
                                             <span className="text-amber-600">Rs. {total.toFixed(2)}</span>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <Link href="/checkout" className="block mt-4">
-                                    <Button className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold py-3 rounded-xl shadow-lg transform hover:scale-[1.02] transition-all duration-200">
+
+                            <div className="mt-3 space-y-2">
+
+                                <Link href="/checkout" className="block">
+                                    <Button className="w-full bg-amber-50 hover:bg-amber-100 text-amber-600 font-medium py-2.5 rounded-lg  transition-colors duration-200">
                                         Proceed to Checkout
                                     </Button>
                                 </Link>
+
+                                <button
+                                    onClick={handleClearCart}
+                                    className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors duration-200 text-sm font-medium"
+                                >
+                                    <Trash2 className="size-4" />
+                                    Clear Cart
+                                </button>
+                            </div>
                             </div>
                         </div>
                     ) : (

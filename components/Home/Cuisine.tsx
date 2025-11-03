@@ -56,8 +56,8 @@ const Cuisine = () => {
 
           {/* Navigation Buttons */}
           <div className="hidden md:block">
-            <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 bg-white border border-gray-200 hover:bg-gray-50" />
-            <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 bg-white border border-gray-200 hover:bg-gray-50" />
+            <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 bg-white border rounded-full border-gray-200 hover:bg-gray-50" />
+            <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 bg-white border rounded-full border-gray-200 hover:bg-gray-50" />
           </div>
         </Carousel>
       </div>

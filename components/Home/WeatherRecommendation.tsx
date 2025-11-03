@@ -100,8 +100,8 @@ export default function WeatherRecommendations({ recommendations }: { recommenda
                   <CardContent className="p-4">
                     <div className="space-y-3">
                       <div>
-                        <h3 className="text-lg font-bold text-gray-900 truncate">{item?.restaurant?.name}</h3>
-                        <p className="text-sm text-gray-600 truncate">{item?.food?.name}</p>
+                        <h2 className="text-lg font-bold text-gray-900 truncate">{item?.food?.name}</h2>
+                        <p className="text-sm text-gray-600 truncate">{item?.restaurant?.name}</p>
                       </div>
                       <div className="flex items-center gap-1 text-gray-600">
                         <span className="text-sm">Price: NPR {item?.food?.price?.toFixed(2)}</span>
@@ -111,7 +111,7 @@ export default function WeatherRecommendations({ recommendations }: { recommenda
                         {renderSpiceLevel(item?.food?.spiceLevel)}
                       </div>
                       <Button
-                        className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 text-sm font-medium"
+                        className="w-full bg-amber-500 hover:bg-amber-600 text-white py-2 text-sm font-medium"
                         size="sm"
                         onClick={() => handleAddToCart(item?.food)}
                       >
@@ -152,7 +152,7 @@ export default function WeatherRecommendations({ recommendations }: { recommenda
               {Array.from({ length: totalSlides }).map((_, index) => (
                 <button
                   key={index}
-                  className={`w-3 h-3 rounded-full transition-colors duration-200 ${index === currentIndex ? "bg-orange-500" : "bg-gray-300"
+                  className={`w-3 h-3 rounded-full transition-colors duration-200 ${index === currentIndex ? "bg-amber-500" : "bg-gray-300"
                     }`}
                   onClick={() => setCurrentIndex(index)}
                 />
