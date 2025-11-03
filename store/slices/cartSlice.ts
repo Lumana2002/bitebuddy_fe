@@ -52,7 +52,7 @@ const cartSlice = createSlice({
         if (item.quantity > 1) {
           item.quantity -= 1;
         } else {
-          state.items.splice(itemIndex, 1);
+          console.log('Item quantity cannot go below 1');
         }
       }
     },

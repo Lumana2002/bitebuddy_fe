@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
-import { ShoppingBasket, Trash2 } from 'lucide-react';
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from '../ui/sheet';
+import { ShoppingBasket, Trash2, X } from 'lucide-react';
 import Image from 'next/image';
 import imgPlaceholder from '@/public/assets/img-placeholder.png';
 import { ChevronUp, ChevronDown } from 'lucide-react';
@@ -86,6 +86,7 @@ const Cart = () => {
                             <div className="flex-1 space-y-3 mb-6 overflow-y-auto ">
                                 {cart.map((food: any) => (
                                     <div key={food?.foodId} className="bg-white rounded-lg p-3 border border-gray-200">
+                                        
                                         <div className="flex gap-2 items-center">
                                             
                                             <div className="flex-grow mn-w-0">
@@ -142,12 +143,13 @@ const Cart = () => {
                                 
 
                             <div className="mt-3 space-y-2">
-
-                                <Link href="/checkout" className="block">
-                                    <Button className="w-full bg-amber-50 hover:bg-amber-100 text-amber-600 font-medium py-2.5 rounded-lg  transition-colors duration-200">
-                                        Proceed to Checkout
-                                    </Button>
-                                </Link>
+                                <SheetClose asChild>
+                                    <Link href="/checkout" className="block">
+                                        <Button className="w-full bg-amber-50 hover:bg-amber-100 text-amber-600 font-medium py-2.5 rounded-lg  transition-colors duration-200">
+                                            Proceed to Checkout
+                                        </Button>
+                                    </Link>
+                                </SheetClose>
 
                                 <button
                                     onClick={handleClearCart}
