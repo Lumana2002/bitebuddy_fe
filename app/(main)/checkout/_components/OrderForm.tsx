@@ -37,54 +37,54 @@ const OrderForm = () => {
 
     // Add state for weather
     const [weather, setWeather] = useState<string>("");
-  
+
     useEffect(() => {
-      const saved = localStorage.getItem("coords");
-      if (saved) {
-        try {
-          setCoords(JSON.parse(saved));
-          return;
-        } catch (_) {}
-      }
-  
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const { latitude, longitude } = pos.coords;
-          const loc = { lat: latitude, lon: longitude };
-          localStorage.setItem("coords", JSON.stringify(loc));
-          setCoords(loc);
-        },
-        (err) => {
-          console.error("Location permission denied:", err.message);
+        const saved = localStorage.getItem("coords");
+        if (saved) {
+            try {
+                setCoords(JSON.parse(saved));
+                return;
+            } catch (_) { }
         }
-      );
+
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const { latitude, longitude } = pos.coords;
+                const loc = { lat: latitude, lon: longitude };
+                localStorage.setItem("coords", JSON.stringify(loc));
+                setCoords(loc);
+            },
+            (err) => {
+                console.error("Location permission denied:", err.message);
+            }
+        );
     }, []);
-  
+
     // Fetch weather whenever coords change
     useEffect(() => {
-      async function fetchWeather(lat: number, lon: number) {
-        try {
-          const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
-          if (!apiKey) throw new Error("OpenWeather API key not found");
-  
-          const res = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
-          );
-          if (!res.ok) throw new Error("Failed to fetch weather");
-  
-          const data = await res.json();
-          const weatherMain = data.weather?.[0]?.main || "";
-          setWeather(weatherMain.toLowerCase());
-        } catch (error) {
-          console.error("Error fetching weather:", error);
+        async function fetchWeather(lat: number, lon: number) {
+            try {
+                const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
+                if (!apiKey) throw new Error("OpenWeather API key not found");
+
+                const res = await fetch(
+                    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+                );
+                if (!res.ok) throw new Error("Failed to fetch weather");
+
+                const data = await res.json();
+                const weatherMain = data.weather?.[0]?.main || "";
+                setWeather(weatherMain.toLowerCase());
+            } catch (error) {
+                console.error("Error fetching weather:", error);
+            }
         }
-      }
-  
-      if (coords) {
-        fetchWeather(coords.lat, coords.lon);
-      }
+
+        if (coords) {
+            fetchWeather(coords.lat, coords.lon);
+        }
     }, [coords]);
-    
+
     // Debug: Log cart items to see their structure
     useEffect(() => {
         if (cart.length > 0) {
@@ -93,7 +93,7 @@ const OrderForm = () => {
         }
     }, [cart]);
     const { data: menu, isPending: isMenuLoading } = useGetMenuDetail(Number(menuId), session?.data?.user?.access_token);
-    
+
     // Log menu loading state
     useEffect(() => {
         if (menu) {
@@ -176,7 +176,7 @@ const OrderForm = () => {
             deliveryAddress: "",
             deliveryDate: "asap",
             deliveryTime: "",
-            weather: "", 
+            weather: "",
         },
     });
 
@@ -213,7 +213,7 @@ const OrderForm = () => {
             keys: Object.keys(item)
         })));
         const toastId = toast.loading('Processing your order...');
-        
+
         try {
             // 1. Validate form
             const isValid = await trigger();
@@ -233,10 +233,10 @@ const OrderForm = () => {
 
             // 3. Prepare order data
             const deliveryDateTime = new Date();
-            
+
             // Log detailed cart item information
             console.log('Cart items before mapping:', JSON.stringify(cart, null, 2));
-            
+
             const orderDetails = cart.map(item => {
                 const orderItem = {
                     foodId: String(item.foodId),
@@ -248,7 +248,7 @@ const OrderForm = () => {
                 console.log('Processed order item:', JSON.stringify(orderItem, null, 2));
                 return orderItem;
             });
-            
+
             const additionalFields = {
                 restaurantId: menu?.restaurant?.restaurantId || 0,
                 paymentStatus: 'pending',
@@ -287,19 +287,19 @@ const OrderForm = () => {
             });
 
             console.log('Order submission successful:', result);
-            
+
             // Show success message
             toast.dismiss(toastId);
             toast.success('Order placed successfully!');
-            
+
             // Clear cart and redirect
             dispatch(clearCart());
             router.push('/profile/orders');
-            
+
         } catch (error) {
             console.error('Order submission failed:', error);
             toast.dismiss(toastId);
-            
+
             // Handle specific error cases
             if (error instanceof Error) {
                 if (error.message.includes('401') || error.message.includes('Unauthorized')) {
@@ -327,12 +327,13 @@ const OrderForm = () => {
                 error={(errors?.deliveryAddress?.message?.toString()) || ""}
                 desc="enter the delivery address"
                 label=""
+                className="border border-gray-200 rounded-md p-3 focus:border-primary focus:ring-1 focus:ring-primary transition"
             />
 
             <div className="flex flex-col sm:flex-row gap-4">
                 <Card>
                     <CardContent
-                        className={`bg-white rounded-lg p-10 flex gap-4 cursor-pointer transition ${selectedPayment === 'cash' ? 'border-2 border-yellow-300' : ''}`}
+                        className={`flex items-center gap-3 p-4 rounded-md cursor-pointer border border-gray-200 transition hover:border-primary ${selectedPayment === 'cash' ? 'border-2 border-yellow-300' : ''}`}
                         onClick={() => handleSelect('cash')}
                     >
                         <Banknote />
@@ -340,71 +341,79 @@ const OrderForm = () => {
                     </CardContent>
                 </Card>
             </div>
-            
-            <div className="w-full flex flex-col gap-y-4">
-                <div className="flex items-center gap-x-2">
-                    <InputBox<TOrderForm>
-                        name="deliveryDate"
-                        id="asap"
-                        value="asap"
-                        placeholder="As soon as possible..."
-                        register={register}
-                        error={(errors?.deliveryDate?.message?.toString()) || ""}
-                        className="w-6 h-6"
-                        type="radio"
-                        onChange={() => setIsScheduleDelivery(false)}
-                    />
-                    <Label id="orderDate">As soon as possible</Label>
-                </div>
-                
-                <div className="flex items-center gap-x-2">
-                    <InputBox<TOrderForm>
-                        name="deliveryDate"
-                        id="schedule"
-                        value="schedule"
-                        placeholder="Schedule Delivery Date..."
-                        register={register}
-                        error={(errors?.deliveryDate?.message?.toString()) || ""}
-                        className="w-6 h-6"
-                        type="radio"
-                        onChange={() => setIsScheduleDelivery(true)}
-                    />
-                    <Label>Schedule delivery for later</Label>
+
+            <div className="flex flex-col gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex items-center gap-2">
+                        <InputBox<TOrderForm>
+                            name="deliveryDate"
+                            id="asap"
+                            value="asap"
+                            placeholder="As soon as possible..."
+                            register={register}
+                            error={(errors?.deliveryDate?.message?.toString()) || ""}
+                            className="w-4 h-4"
+                            type="radio"
+                            onChange={() => setIsScheduleDelivery(false)}
+                        />
+                        <Label id="orderDate" className="text-gray-700">As soon as possible</Label>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        <InputBox<TOrderForm>
+                            name="deliveryDate"
+                            id="schedule"
+                            value="schedule"
+                            placeholder="Schedule Delivery Date..."
+                            register={register}
+                            error={(errors?.deliveryDate?.message?.toString()) || ""}
+                            className="w-4 h-4"
+                            type="radio"
+                            onChange={() => setIsScheduleDelivery(true)}
+                        />
+                        <Label className="text-gray-700">Schedule delivery for later</Label>
+                    </div>
                 </div>
 
                 {isScheduleDelivery && (
-                    <div className="mt-4">
-                        <Label className="text-lg font-medium text-gray-900">Select Delivery Date and Time</Label>
-                        <div className="flex gap-x-16 mt-4 opacity-90">
-                            <SelectBox<TOrderForm>
-                                name="deliveryDate"
-                                control={control}
-                                map={dateOptions}
-                                placeholder="Select Delivery Date"
-                                label="Date"
-                                error={(errors?.deliveryDate?.message) || ""}
-                            />
+                    <div className="mt-4 p-4 border-2 border-gray-200 rounded-md bg-gray-50">
+                        <Label className="text-sm font-medium text-gray-900 mb-2 block text-center">Select Delivery Date and Time</Label>
+                        <div className="flex flex-col gap-4 items-center">
+                            <div className="flex items-center gap-2">
+                            <span className="text-sm font-medium text-gray-800">Date</span>
+                                <SelectBox<TOrderForm>
+                                    name="deliveryDate"
+                                    control={control}
+                                    map={dateOptions}
+                                    placeholder="Select Delivery Date"
+                                    label=""
+                                    error={(errors?.deliveryDate?.message) || ""}
+                                />
+                            </div>
 
-                            <SelectBox<TOrderForm>
-                                name="deliveryTime"
-                                control={control}
-                                map={timeOptions}
-                                placeholder="Select Delivery Time"
-                                label="Time"
-                                error={(errors?.deliveryTime?.message) || ""}
-                            />
+                            <div className="flex items-center gap-2">
+                            <span className="text-sm font-medium text-gray-800">Time</span>
+                                <SelectBox<TOrderForm>
+                                    name="deliveryTime"
+                                    control={control}
+                                    map={timeOptions}
+                                    placeholder="Select Delivery Time"
+                                    label=""
+                                    error={(errors?.deliveryTime?.message) || ""}
+                                />
+                            </div>
                         </div>
                     </div>
                 )}
             </div>
-            
-            <Button 
+
+            <Button
                 type="submit"
-                className="text-base w-[200px] text-white mt-10 bg-primary hover:bg-primary/80"
+                className="w-full sm:w-[200px] bg-white text-amber-600 py-3 rounded-md hover:bg-amber-200 transition"
             >
                 {isPending ? (
-                    <div className="flex items-center gap-2">
-                        <Loader2 className="size-5 animate-spin" />
+                    <div className="flex items-center gap-2 justify-center">
+                        <Loader2 className="w-5 h-5 animate-spin" />
                         <p>Creating..</p>
                     </div>
                 ) : (
