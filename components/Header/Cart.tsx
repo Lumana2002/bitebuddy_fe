@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from '../ui/sheet';
 import { ShoppingBasket, Trash2, X } from 'lucide-react';
 import Image from 'next/image';
@@ -10,7 +10,7 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { addItem, clearCart, removeItem } from '@/store/slices/cartSlice';
+import { addItem, clearCart, deleteSelectedItems, removeItem } from '@/store/slices/cartSlice';
 import { useGetMenuDetail } from '@/hooks/menusQueries';
 import { useSession } from 'next-auth/react';
 
@@ -18,6 +18,7 @@ const Cart = () => {
     const session = useSession()
     const cart = useSelector((state: RootState) => state.cart.items);
     const dispatch = useDispatch();
+    const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
 
     const menuId = cart.length > 0 ? Number(cart[0].menuId) : -1;
     const menu = useGetMenuDetail(menuId, session?.data?.user?.access_token);
@@ -38,6 +39,23 @@ const Cart = () => {
 
     const handleRemoveItem = (foodId: string) => {
         dispatch(removeItem(foodId));
+    };
+
+    const toggleItemSelection = (foodId: string) => {
+        setSelectedItems(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(foodId)) {
+                newSet.delete(foodId);
+            } else {
+                newSet.add(foodId);
+            }
+            return newSet;
+        });
+    };
+
+    const handleDeleteSelected = () => {
+        dispatch(deleteSelectedItems(Array.from(selectedItems)));
+        setSelectedItems(new Set()); 
     };
 
     const handleClearCart = () => {
@@ -70,6 +88,15 @@ const Cart = () => {
                         <div className="flex items-center justify-center gap-2 mb-1">
                             <ShoppingBasket className="size-5 text-white" />
                             <h2 className="text-lg font-bold text-white">Your Cart</h2>
+                            {selectedItems.size > 0 && (
+                                <button
+                                    onClick={handleDeleteSelected}
+                                    className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg transition-colors shadow-md"
+                                    title={`Delete ${selectedItems.size} selected item(s)`}
+                                >
+                                    <Trash2 className="size-5" />
+                                </button>
+                            )}
                         </div>
                         {restaurantName && (
                             <div className="flex justify-center">
@@ -85,15 +112,30 @@ const Cart = () => {
                             {/* Cart Items */}
                             <div className="flex-1 space-y-3 mb-6 overflow-y-auto ">
                                 {cart.map((food: any) => (
-                                    <div key={food?.foodId} className="bg-white rounded-lg p-3 border border-gray-200">
-                                        
+                                    <div key={food?.foodId} className="bg-white rounded-lg p-3 border border-gray-200"
+                                        onClick={() => toggleItemSelection(food.foodId)}
+                                    >
+
                                         <div className="flex gap-2 items-center">
-                                            
+                                            {/* Selection indicator */}
+                                            <div className="flex-shrink-0">
+                                                <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${selectedItems.has(food.foodId)
+                                                    ? 'bg-amber-500 border-amber-500'
+                                                    : 'border-gray-300'
+                                                    }`}>
+                                                    {selectedItems.has(food.foodId) && (
+                                                        <svg className="w-3 h-3 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path d="M5 13l4 4L19 7"></path>
+                                                        </svg>
+                                                    )}
+                                                </div>
+                                            </div>
+
                                             <div className="flex-grow mn-w-0">
                                                 <h3 className="font-semibold text-gray-800 mb-1">{food?.name}</h3>
                                                 <p className="text-amber-600 font-medium">Rs. {food?.price}</p>
                                             </div>
-                                            
+
                                             <div className="flex items-center gap-2">
                                                 <button
                                                     onClick={() => handleAddItem(food)}
@@ -111,7 +153,7 @@ const Cart = () => {
                                                     <ChevronDown className="size-4" />
                                                 </button>
                                             </div>
-                                            
+
                                             <div className="w-24 text-center">
                                                 <p className="font-semibold text-gray-900 text-sm">
                                                     Rs. {(parseFloat(food.price) * (food?.quantity || 1)).toFixed(2)}
@@ -140,25 +182,25 @@ const Cart = () => {
                                         </div>
                                     </div>
                                 </div>
-                                
 
-                            <div className="mt-3 space-y-2">
-                                <SheetClose asChild>
-                                    <Link href="/checkout" className="block">
-                                        <Button className="w-full bg-amber-50 hover:bg-amber-100 text-amber-600 font-medium py-2.5 rounded-lg  transition-colors duration-200">
-                                            Proceed to Checkout
-                                        </Button>
-                                    </Link>
-                                </SheetClose>
 
-                                <button
-                                    onClick={handleClearCart}
-                                    className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors duration-200 text-sm font-medium"
-                                >
-                                    <Trash2 className="size-4" />
-                                    Clear Cart
-                                </button>
-                            </div>
+                                <div className="mt-3 space-y-2">
+                                    <SheetClose asChild>
+                                        <Link href="/checkout" className="block">
+                                            <Button className="w-full bg-amber-50 hover:bg-amber-100 text-amber-600 font-medium py-2.5 rounded-lg  transition-colors duration-200">
+                                                Proceed to Checkout
+                                            </Button>
+                                        </Link>
+                                    </SheetClose>
+
+                                    <button
+                                        onClick={handleClearCart}
+                                        className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-colors duration-200 text-sm font-medium"
+                                    >
+                                        <Trash2 className="size-4" />
+                                        Clear Cart
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ) : (

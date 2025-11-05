@@ -59,8 +59,14 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.items = [];
     },
+    deleteSelectedItems: (state, action: PayloadAction<string[]>) => {
+      console.log("Deleting selected items:", action.payload);
+      state.items = state.items.filter(
+        (item) => !action.payload.includes(item.foodId)
+      );
+    },
   },
 });
 
-export const { addItem, removeItem, clearCart } = cartSlice.actions;
+export const { addItem, removeItem, clearCart, deleteSelectedItems } = cartSlice.actions;
 export default cartSlice.reducer;
