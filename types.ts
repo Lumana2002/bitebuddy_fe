@@ -35,6 +35,7 @@ type Food = {
   price: string;
   quantity: number;
   spiceLevel: string;
+  image?: string;
 };
 
 type Order = {

@@ -18,7 +18,7 @@ const page = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`/api/orders?restaurantId=${restaurantId}`);
+        const response = await axios.get(`/api/${restaurantId}/orders`);
         const data = response.data;
         setOrders(data);
         setLoading(false);

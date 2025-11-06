@@ -2,22 +2,24 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
-import { Control, Controller, FieldErrors } from "react-hook-form";
+import { Control, Controller, FieldErrors, FieldValues, Path } from "react-hook-form";
 import { Image as ImgIcon, X } from "lucide-react";
 import { TRestaurant } from "@/schemas/restaurantSchema";
 import { uploadImage } from "@/apicalls/imageUpload";
+import { TFood } from "@/schemas/foodSchema";
 
 // Define the API URL
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
-type ImageUploadProps = {
-  control: Control<TRestaurant>;
-  errors?: FieldErrors<TRestaurant>;
+type ImageUploadProps<T extends FieldValues> = {
+  name: Path<T>;
+  control: Control<T>;
+  errors?: FieldErrors<T>;
   defImg?: string;
   token?: string; // Added token prop for authentication
 };
 
-const ImageUpload = ({ control, errors, defImg, token }: ImageUploadProps) => {
+const ImageUpload = <T extends FieldValues,>({ control, errors, defImg, token, name }: ImageUploadProps<T>) => {
   const [file, setFile] = useState<File | undefined>();
   const [defaultImage, setDefaultImage] = useState<string | undefined>(defImg);
   const imgRef = useRef<HTMLInputElement>(null);
@@ -72,7 +74,7 @@ const ImageUpload = ({ control, errors, defImg, token }: ImageUploadProps) => {
   return (
     <div className="flex flex-col">
       <Controller
-        name="image"
+        name={"image" as Path<T>}
         control={control}
         render={({ field }) => (
           <div>

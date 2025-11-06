@@ -8,6 +8,7 @@ type Food = {
   category: string;
   price: number;
   quantity: number;
+  image?: string;
 };
 
 const useCart = () => {

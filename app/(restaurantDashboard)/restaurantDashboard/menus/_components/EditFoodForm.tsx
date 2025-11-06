@@ -14,6 +14,9 @@ import { useRouter } from "next/navigation";
 import { useGetFoodDetail } from "@/hooks/foodQueries";
 import { FoodSchema, TFood } from "@/schemas/foodSchema";
 import { updateFood } from "@/apicalls/food";
+import ImageUpload from "@/app/(dashboard)/dashboard/restaurants/_components/ImageUpload";
+import { set } from "zod";
+
 
 type EditFoodFormProps = {
     id: string
@@ -43,6 +46,7 @@ const EditFoodForm = ({ id, foodId }: EditFoodFormProps) => {
             category: foodData?.category,
             price: foodData?.price,
             spiceLevel: foodData?.spiceLevel,
+            image: foodData?.image || "",
         },
     });
 
@@ -52,6 +56,7 @@ const EditFoodForm = ({ id, foodId }: EditFoodFormProps) => {
             setValue("category", foodData?.category || "");
             setValue("price", foodData?.price || '');
             setValue("spiceLevel", foodData?.spiceLevel || '');
+            setValue("image", foodData?.image || "");
         }
     }, [foodData, setValue]);
 
@@ -136,6 +141,13 @@ const EditFoodForm = ({ id, foodId }: EditFoodFormProps) => {
                 label="Food's price *"
             />
 
+            <ImageUpload<TFood>
+                name="image"
+                control={control}
+                errors={errors}
+                defImg={foodData?.image}
+                token={session?.data?.user?.access_token}
+            />
 
             <Button type="submit" className="px-5 py-2.5 my-auto text-[16px] w-[200px] h-[40px] font-medium  rounded-md  border-r-0 ">
                 {isPending ? (

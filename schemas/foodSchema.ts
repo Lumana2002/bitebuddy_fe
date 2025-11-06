@@ -14,6 +14,8 @@ export const FoodSchema = z.object({
   price: z
     .string({ required_error: "Food Price is required" })
     .min(1, { message: "Food Price is required" }),
+  image:z
+    .string().optional().or(z.literal("")),
 });
 
 export type TFood = z.infer<typeof FoodSchema>;
