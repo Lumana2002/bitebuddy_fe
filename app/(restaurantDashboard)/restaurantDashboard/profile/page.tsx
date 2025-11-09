@@ -185,6 +185,7 @@ const page = () => {
                 />
 
                 <ImageUpload
+                    name="image"
                     control={control}
                     errors={errors}
                     defImg={restaurantData?.image}

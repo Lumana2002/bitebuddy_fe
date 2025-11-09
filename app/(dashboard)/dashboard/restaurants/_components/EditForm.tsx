@@ -185,6 +185,7 @@ const EditForm: React.FC<EditProps> = ({ id }) => {
       />
 
       <ImageUpload
+        name="image"
         control={control}
         errors={errors}
         defImg={restaurantData?.image}

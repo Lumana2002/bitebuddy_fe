@@ -139,7 +139,7 @@ const RestaurantForm = () => {
                 label="Restaurant's Status *"
             />
 
-            <ImageUpload control={control} errors={errors} token={session?.data?.user?.access_token} />
+            <ImageUpload name="image" control={control} errors={errors} token={session?.data?.user?.access_token} />
 
 
             {/* Form Submission */}
