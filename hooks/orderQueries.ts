@@ -1,4 +1,4 @@
-import { getAllOrders, getOrderDetails } from "@/apicalls/order";
+import { getAllOrders, getOrderDetails, getRestaurantOrders } from "@/apicalls/order";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
@@ -26,4 +26,17 @@ export const useGetOrderDetails = (
   });
 
   return { data, isPending };
+};
+
+export const useGetRestaurantOrders = (
+  restaurantId: number | undefined,
+  pageParam: number | 1
+) => {
+  const { data: session } = useSession();
+  const { data, isPending, refetch } = useQuery<PaginatedOrdersData>({
+    queryKey: ["restaurant-orders", pageParam, restaurantId],
+    queryFn: () => getRestaurantOrders({ restaurantId, pageParam, token: session?.user?.access_token }),
+    placeholderData: keepPreviousData,
+  });
+  return { data, isPending, refetch };
 };
