@@ -9,13 +9,14 @@ export const FoodSchema = z.object({
     .string({ required_error: "Food Category is required" })
     .min(1, { message: "Food Category is required" }),
   spiceLevel: z
-    .string({ required_error: "Food Spice Level is required" })
-    .min(1, { message: "Food Spice Level is required" }),
+    .coerce.number({ required_error: "Food Spice Level is required" })
+    .min(1, { message: "Minimum Spice Level is 1" })
+    .max(5, { message: "Maximum Spice Level is 5" }),
   price: z
-    .string({ required_error: "Food Price is required" })
-    .min(1, { message: "Food Price is required" }),
-  image:z
-    .string().optional().or(z.literal("")),
+    .coerce.number({ required_error: "Food Price is required" })
+    .min(1, { message: "Minimum Food Price is 1" }),
+  image: z
+    .string().optional(),
 });
 
 export type TFood = z.infer<typeof FoodSchema>;

@@ -7,13 +7,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { FoodSchema, TFood } from "@/schemas/foodSchema";
-import { addFoodToMenu, createFood, updateFood } from "@/apicalls/food";
+import { addFoodToMenu } from "@/apicalls/food";
 import { useGetRestaurantUser } from "@/hooks/restaurantsQueries";
+import ImageUpload from "@/app/(dashboard)/dashboard/restaurants/_components/ImageUpload";
 
 
 const EditFoodForm = () => {
@@ -21,7 +22,7 @@ const EditFoodForm = () => {
     const queryClient = useQueryClient();
     const session = useSession();
     const { id: id } = useParams()
-    const { data: restaurantData, isPending: isLoading } = useGetRestaurantUser(session?.data?.user.id, session?.data?.user?.access_token);
+    const { data: restaurantData, isPending: isLoading } = useGetRestaurantUser(Number(session?.data?.user?.id), session?.data?.user?.access_token);
 
     const {
         register,
@@ -58,11 +59,10 @@ const EditFoodForm = () => {
                 ...data,
                 price: Number(data.price),
                 spiceLevel: Number(data.spiceLevel),
+                image: data.image,
             },
             token: session?.data?.user?.access_token,
         };
-        console.log(modifiedData)
-        console.log(modifiedData.body)
         mutate(modifiedData);
     };
 
@@ -100,6 +100,7 @@ const EditFoodForm = () => {
                 id="spiceLevel"
                 placeholder="Enter Food's Spice Level (1-5)..."
                 register={register}
+                type="number"
                 error={(errors && errors?.spiceLevel?.message?.toString()) || ""}
                 desc="enter the spice level of food"
                 label="Food's Spiciness *"
@@ -109,12 +110,14 @@ const EditFoodForm = () => {
                 name="price"
                 id="price"
                 placeholder="Enter Food Price..."
+                type="number"
                 register={register}
                 error={(errors && errors?.price?.message?.toString()) || ""}
                 desc="enter the price of food"
                 label="Food's Price *"
             />
 
+            <ImageUpload name="image" control={control} errors={errors} token={session?.data?.user?.access_token} />
 
             <Button type="submit" className="px-5 py-2.5 my-auto text-[16px] w-[200px] h-[40px] font-medium  rounded-md  border-r-0 ">
                 {isPending ? (

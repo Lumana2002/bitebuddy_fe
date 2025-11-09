@@ -1,5 +1,4 @@
 "use client";
-import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Edit, Loader2, Trash } from "lucide-react";
@@ -22,6 +21,7 @@ import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteFood } from "@/apicalls/food";
 import Pagination from "@/components/Pagination";
+import Image from "next/image";
 
 
 const FoodsTable = () => {
@@ -30,7 +30,6 @@ const FoodsTable = () => {
     const [page, setPage] = useState<number>(1);
     const { id: id } = useParams();
 
-    console.log(id)
     const { data: foodData, isPending } = useGetAllMenuFoods(Number(id), page);
 
 
@@ -57,8 +56,6 @@ const FoodsTable = () => {
         (_, index) => index + 1
     );
 
-    console.log(foodData)
-
     return (
         <div className="w-full relative overflow-hidden border border-gray-200 rounded-lg mb-10 bg-gray-50/30">
             <div className="w-full overflow-x-auto">
@@ -78,7 +75,7 @@ const FoodsTable = () => {
                                 Category
                             </th>
                             <th scope="col" className="px-4 py-3 text-left">
-                                Status
+                                Spice Level
                             </th>
                             <th scope="col" className="px-4 py-3 text-right">
                                 Actions
@@ -87,8 +84,30 @@ const FoodsTable = () => {
                     </thead>
 
                     <tbody className="bg-white/80 divide-y divide-gray-100">
-                        {foodData?.content?.map(({ foodId, name, price, foodCategory, isAvailable }: any) => (
+                        {foodData?.content?.map(({ image, foodId, name, price, category, spiceLevel }: any) => (
                             <tr key={foodId} className="hover:bg-gray-50/50 transition-colors">
+                                <td className="px-4 py-3 text-sm text-gray-700">
+                                    {image ? (
+                                        <div className="relative flex size-[50px] flex-col  rounded-full">
+                                            <Image
+                                                src={image}
+                                                fill
+                                                alt=""
+                                                className=" object-cover rounded-full border border-input"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="relative flex size-[50px] flex-col rounded-full">
+                                            <Image
+                                                src="/assets/no-image.jpg"
+                                                alt={name}
+                                                width={50}
+                                                height={50}
+                                                className="rounded-full object-cover"
+                                            />
+                                        </div>
+                                    )}
+                                </td>
                                 <td className="px-4 py-3 text-sm text-gray-700">
                                     {foodId}
                                 </td>
@@ -99,19 +118,10 @@ const FoodsTable = () => {
                                     ${price?.toFixed(2)}
                                 </td>
                                 <td className="px-4 py-3 text-sm text-gray-700">
-                                    {foodCategory?.name}
+                                    {category}
                                 </td>
-                                <td className="px-4 py-3">
-                                    <span
-                                        className={cn(
-                                            "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium",
-                                            isAvailable
-                                                ? "bg-green-100 text-green-800"
-                                                : "bg-amber-100 text-amber-800"
-                                        )}
-                                    >
-                                        {isAvailable ? "Available" : "Not Available"}
-                                    </span>
+                                <td className="px-4 py-3 text-sm text-gray-700">
+                                    {spiceLevel}
                                 </td>
                                 <td className="px-4 py-3 text-right text-sm">
                                     <div className="flex justify-end space-x-2">
@@ -159,9 +169,9 @@ const FoodsTable = () => {
                                             </AlertDialogContent>
                                         </AlertDialog>
                                     </div>
-                                    </td>
-                                </tr>
-                            )
+                                </td>
+                            </tr>
+                        )
                         )}
                     </tbody>
                 </table>
