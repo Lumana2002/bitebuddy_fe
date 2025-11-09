@@ -28,9 +28,6 @@ const EditFoodForm = ({ id, foodId }: EditFoodFormProps) => {
     const session = useSession();
     const queryClient = useQueryClient();
     const { data: foodData, isPending } = useGetFoodDetail(Number(foodId), session?.data?.user?.access_token);
-    console.log(id)
-
-    console.log(foodData)
 
     const {
         control,
@@ -44,8 +41,8 @@ const EditFoodForm = ({ id, foodId }: EditFoodFormProps) => {
         defaultValues: {
             name: foodData?.name,
             category: foodData?.category,
-            price: foodData?.price,
-            spiceLevel: foodData?.spiceLevel,
+            price: Number(foodData?.price),
+            spiceLevel: Number(foodData?.spiceLevel),
             image: foodData?.image || "",
         },
     });
@@ -54,8 +51,8 @@ const EditFoodForm = ({ id, foodId }: EditFoodFormProps) => {
         if (foodData) {
             setValue("name", foodData?.name || "");
             setValue("category", foodData?.category || "");
-            setValue("price", foodData?.price || '');
-            setValue("spiceLevel", foodData?.spiceLevel || '');
+            setValue("price", Number(foodData?.price));
+            setValue("spiceLevel", Number(foodData?.spiceLevel));
             setValue("image", foodData?.image || "");
         }
     }, [foodData, setValue]);
@@ -88,7 +85,6 @@ const EditFoodForm = ({ id, foodId }: EditFoodFormProps) => {
             },
             token: session?.data?.user?.access_token,
         };
-        console.log(modifiedData)
         mutate(modifiedData);
     };
 
@@ -126,6 +122,7 @@ const EditFoodForm = ({ id, foodId }: EditFoodFormProps) => {
                 id="spiceLevel"
                 placeholder="Enter Food's Spice Level (1-5)..."
                 register={register}
+                type="number"
                 error={(errors && errors?.spiceLevel?.message?.toString()) || ""}
                 desc="enter the spice level of food"
                 label="Food's Spiciness *"
@@ -136,6 +133,7 @@ const EditFoodForm = ({ id, foodId }: EditFoodFormProps) => {
                 id="price"
                 placeholder="Enter Food Price..."
                 register={register}
+                type="number"
                 error={(errors && errors?.price?.message?.toString()) || ""}
                 desc="enter the price of food"
                 label="Food's price *"
