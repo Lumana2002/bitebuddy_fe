@@ -93,6 +93,47 @@ export const updateOrder = async (data: {
     throw new Error(error?.message);
   }
 };
+export const getRestaurantOrders = async (data: {
+  restaurantId: number | undefined;
+  pageParam: number | 1;
+  token?: string;
+}) => {
+  try {
+    const response = await GetRequest(
+      `/api/restaurants/${data.restaurantId}/orders`,
+      { page: data.pageParam },
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error?.message);
+  }
+};
+
+export const updateOrderStatus = async (data: {
+  orderId: number | undefined;
+  body: any;
+  token: string | undefined;
+}) => {
+  try {
+    const response = await PatchRequest(
+      `/api/orders/${data.orderId}/status`,
+      { ...data.body },
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error: any) {
+    throw new Error(error?.message);
+  }
+};
 
 // export const deleteRestaurant = async (data: {
 //   id: number;
