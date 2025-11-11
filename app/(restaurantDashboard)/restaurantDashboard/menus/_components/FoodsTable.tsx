@@ -99,7 +99,7 @@ const FoodsTable = () => {
                                     ) : (
                                         <div className="relative flex size-[50px] flex-col rounded-full">
                                             <Image
-                                                src="/assets/no-image.jpg"
+                                                src="/assets/img-placeholder.png"
                                                 alt={name}
                                                 width={50}
                                                 height={50}

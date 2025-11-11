@@ -78,15 +78,11 @@ export default function WeatherRecommendations({ recommendations }: { recommenda
                 >
                   <div className="relative">
                     <Image
-                      src={item.restaurant.image || "/placeholder.svg"}
+                      src={item.food.image || "/assets/img-placeholder.png"}
                       alt={item.food.name}
                       width={400}
                       height={200}
                       className="w-full h-48 object-cover"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement
-                        target.src = `/placeholder.svg?height=200&width=400&text=${encodeURIComponent(item.food.name)}`
-                      }}
                     />
                     <div className="absolute top-3 right-3">
                       <div className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full">

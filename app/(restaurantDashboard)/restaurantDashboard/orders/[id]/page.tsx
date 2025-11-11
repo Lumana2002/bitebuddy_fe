@@ -37,7 +37,7 @@ const OrderDetailsPage = () => {
                                     </div>
                                 ) : (
                                     <div className="relative w-10 h-10 rounded-full overflow-hidden">
-                                        <Image src={"/assets/no-image.jpg"} alt={item.foodName} fill className="object-cover" />
+                                        <Image src={"/assets/img-placeholder.png"} alt={item.foodName} fill className="object-cover" />
                                     </div>
                                 )}
                                 {item.foodName}
